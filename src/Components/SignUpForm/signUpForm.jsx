@@ -1,7 +1,7 @@
 import React, {useState} from 'react';  
 import axios from 'axios';
 import { useHistory} from 'react-router-dom';
-// import './signUpForm.css';
+import './signUpForm.css';
 
 const SignUpForm = () => {
     const initialUserInfo = {
@@ -10,7 +10,7 @@ const SignUpForm = () => {
         username: "",
         email: "",
         password: "",
-        phonenumber: ""
+        isOwner: false,
     }
     const history = useHistory()
     const [eachEntry, setEachEntry] = useState(initialUserInfo)
@@ -60,6 +60,9 @@ const SignUpForm = () => {
         signUp();
         
     }
+    const handleCheckbox = event => {
+      eachEntry.isOwner = !eachEntry.isOwner
+    }
 
     const handleChange = (event) => {
         setEachEntry({ ...eachEntry, [event.target.name]: event.target.value });
@@ -69,6 +72,7 @@ const SignUpForm = () => {
         let userData = eachEntry;
         const isValid = signUpFormValidation();
         if(isValid){
+          console.log(userData);
             let response = await axios.post("https://localhost:44394/api/authentication", userData);
             if (response.data.length !== 0){
                 history.push("/Login")
@@ -77,9 +81,9 @@ const SignUpForm = () => {
         }
     }
     return (
-        <div className="container">
+        <div className="container-fluid">
             <div className="row">
-                <div className="col sm-4"></div>
+                <div className="col sm-4 side"></div>
                 <div className="col sm-4">
                 <div>
                     <h1 className="title">Signup</h1>
@@ -119,15 +123,15 @@ const SignUpForm = () => {
                         return <div style={{color: "yellow"}}>{passwordError[key]} </div>
                     })}
                     </div>
-                    <h5 className="signupTitle">Phone Number:</h5>
-                    <div>
-                    <input  className="form-control" value={eachEntry.phonenumber} name="phonenumber" placeholder="Phone number..." onChange={handleChange}></input>
+                      <div class="form-check">
+                      <input type="checkbox" onChange={handleCheckbox} class="form-check-input" id="exampleCheck1"/>
+                      <label class="form-check-label" for="exampleCheck1">Are you a taco shop owner?</label>
                     </div>
                     <button className="mt-2 mb-1" type="submit">Sign Up</button>
                     </form>
                     </div>
                 </div>
-                <div className="col sm-4"></div>
+                <div className="col sm-4 side"></div>
             </div>
         </div>
     )

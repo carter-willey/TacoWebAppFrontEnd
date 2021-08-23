@@ -1,0 +1,16 @@
+.side {
+  background-color: #ffbf40;
+  height: 100vh;
+}
+.row {
+   min-width: 100%;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:0px;
+}
+body {
+  min-height: 100vh;
+}
