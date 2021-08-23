@@ -2,6 +2,10 @@
   background-color: #ffbf40;
   height: 100vh;
 }
+.middle {
+  justify-content: center;
+  text-align: center;
+}
 .container {
   display: flex;
   justify-content: center;
