@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from './Components/NavBar/navBar';
 import Home from './Components/Home/home';
 import LoginForm from './Components/LoginForm/loginForm';
+import SignUpForm from './Components/SignUpForm/signUpForm';
 import {
   BrowserRouter as Router,
   Switch,
@@ -55,7 +56,7 @@ function App() {
           exact
           render={(props) => (<Home {...props} />
           )} />
-          {/* <Route path="/Signup" render={(props) => <SignUpForm {...props} />} /> */}
+          <Route path="/Signup" render={(props) => <SignUpForm {...props} />} />
           <Route
             path="/Login"
             render={(props) => (
