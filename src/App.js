@@ -12,6 +12,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import axios from 'axios';
 
 
 
@@ -20,9 +21,10 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [currentUser, setCurrentUser] = useState();
   
-  useEffect(() => {
+  useEffect(async () => {
     const jwtToken = localStorage.getItem("token");
     setToken(jwtToken);
+    
     
     try {
       const user = jwtDecode(jwtToken);
@@ -51,23 +53,28 @@ function App() {
   }
   return (
     <Router>
-    <div>
-        <NavBar />
-        <Switch>
-          <Route path="/"
-          exact
-          render={(props) => (<Home {...props} />
-          )} />
-          <Route path="/Signup" render={(props) => <SignUpForm {...props} />} />
-          <Route path="/RegisterShop" render={(props) => <RegisterShop {...props} />} />
-          <Route
-            path="/Login"
-            render={(props) => (
-              <LoginForm {...props} setUserToken={setUserToken} />
-            )}
-          />
-        </Switch>
-    </div>
+      {!loading &&
+      <div>
+          <NavBar logout={logout} currentUser={currentUser} />
+          <Switch>
+            <Route path="/"
+            exact
+            render={(props) => (<Home {...props} />
+            )} />
+            <Route path="/Signup" render={(props) => <SignUpForm {...props} />} />
+            <Route path="/RegisterShop" render={(props) => <RegisterShop {...props} 
+              currentUser={currentUser}
+              currentToken={token}
+            />} />
+            <Route
+              path="/Login"
+              render={(props) => (
+                <LoginForm {...props} setUserToken={setUserToken} />
+              )}
+            />
+          </Switch>
+      </div>
+    } 
     </Router>
   );
 }
