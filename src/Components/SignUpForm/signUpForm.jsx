@@ -76,7 +76,7 @@ const SignUpForm = () => {
             let response = await axios.post("https://localhost:44394/api/authentication", userData);
             if (response.data.length !== 0){
                 history.push("/Login")
-            }  
+            }
             setEachEntry(initialUserInfo)
         }
     }

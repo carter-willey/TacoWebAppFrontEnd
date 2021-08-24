@@ -4,6 +4,7 @@ import NavBar from './Components/NavBar/navBar';
 import Home from './Components/Home/home';
 import LoginForm from './Components/LoginForm/loginForm';
 import SignUpForm from './Components/SignUpForm/signUpForm';
+import RegisterShop from './Components/RegisterShop/registerShop';
 import {
   BrowserRouter as Router,
   Switch,
@@ -31,6 +32,7 @@ function App() {
         logout();
       }
       setCurrentUser({ user });
+      console.log(currentUser);
       setLoading(false)
     } catch {
       setLoading(false)
@@ -57,6 +59,7 @@ function App() {
           render={(props) => (<Home {...props} />
           )} />
           <Route path="/Signup" render={(props) => <SignUpForm {...props} />} />
+          <Route path="/RegisterShop" render={(props) => <RegisterShop {...props} />} />
           <Route
             path="/Login"
             render={(props) => (

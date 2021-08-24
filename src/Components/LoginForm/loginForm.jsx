@@ -29,6 +29,7 @@ const logIn = async () => {
   });
   if (res !== undefined){
     setUserToken(res.data.token)
+    console.log(res.data);
     history.push("/")
   }
 }
