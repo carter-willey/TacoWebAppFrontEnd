@@ -77,7 +77,7 @@ const RegisterShop = (props) => {
                     <form onSubmit={handleSubmit}>
                         <div>
                             <h5 className="signupTitle">Shop Name:</h5>
-                    <input  className="form-control " value={eachEntry.shopname} name="shopname" placeholder="Shop name..." onChange={handleChange}></input>
+                    <input  className="form-control " value={eachEntry.name} name="name" placeholder="Shop name..." onChange={handleChange}></input>
                     
                     </div>
                     <h5 className="signupTitle">Shop Address:</h5>
