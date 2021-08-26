@@ -44,10 +44,6 @@ const MapPage = (props) => {
     setMap(null)
   }, [])
 
-  const geoCode = async () => {
-    await axios.get
-  }
-
 
   
   return isLoaded ? (
@@ -60,7 +56,12 @@ const MapPage = (props) => {
     >
       { /* Child components, such as markers, info windows, etc. */ }
       <>
-      
+      {allShops.map((shop) =>{
+   
+        <Marker key={shop.shopId} position={{lat: shop.lat, lng: shop.lng}} name={shop.name}
+        
+           />
+      })}
       </>
     </GoogleMap>
 ) : <></>

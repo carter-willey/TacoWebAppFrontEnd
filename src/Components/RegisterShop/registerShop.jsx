@@ -5,28 +5,29 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption
-} from "@reach/combobox";
+import ShopAddressSearch from '../ShopAddressSearch/shopAddressSearch';
 
 
 const RegisterShop = (props) => {
   const {currentToken, currentUser} = props;
-  
-    const initialShopInfo = {
-        userid: currentUser.user.id,
-        name: "",
-        address: "",        
-    }
+
     const history = useHistory()
-    const [eachEntry, setEachEntry] = useState(initialShopInfo)
     const [eachTimeEntry, setEachTimeEntry] = useState()
     const [shopNameError, setShopNameError] = useState({})
     const [addressError, setAddressError] = useState({})
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+    const [lat, setLat] = useState("");
+    const [lng, setLng] = useState("");
+
+    const eachEntry = {
+      userid: currentUser.user.id,
+      name: name,
+      address: address,
+      lat: lat,
+      lng: lng,       
+  }
+
 
 
     const signUpFormValidation = () => {
@@ -48,15 +49,16 @@ const RegisterShop = (props) => {
         return isValid;
     }
 
+
     const handleSubmit = (event) => {
         event.preventDefault();
         Register();
         
     }
     const handleChange = (event) => {
-        setEachEntry({ ...eachEntry, [event.target.name]: event.target.value });
+        setName(event.target.value);
       };
-
+      
       const handleTimeChange = (event) => {
         setEachTimeEntry({...eachTimeEntry, [event.target.name]: event.target.value})
         console.log(eachTimeEntry);
@@ -79,7 +81,7 @@ const RegisterShop = (props) => {
         }
     }
     return (
-        <div className="container-fluid">
+        <div className="container-fluid"> 
             <div className="row">
                 <div className="col sm-4 side"></div>
                 <div className="col sm-4">
@@ -91,9 +93,12 @@ const RegisterShop = (props) => {
                     <input  className="form-control " value={eachEntry.name} name="name" placeholder="Shop name..." onChange={handleChange}></input>
                     
                     </div>
+
+                    
                     <h5 className="signupTitle">Shop Address:</h5>
                     <div>
-                    <input  className="form-control" value={eachEntry.address} name="address" placeholder="Address..." onChange={handleChange}></input>
+                    <ShopAddressSearch setAddress={setAddress} setLat={setLat} setLng={setLng}/>
+                    {/* <input  className="form-control" value={eachEntry.address} name="address" placeholder="Address..." onChange={handleChange}></input> */}
                     
                     </div>
                     <h5 className="signupTitle">Monday Open:</h5>
