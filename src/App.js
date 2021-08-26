@@ -21,6 +21,8 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [currentUser, setCurrentUser] = useState();
   const [usersFeed, setUsersFeed] = useState([]);
+  const [allShops, setAllShops] = useState([]);
+  const [tacosFromShop, setTacosFromShop] = useState([]);
   
   useEffect(async () => {
     const jwtToken = localStorage.getItem("token");
@@ -47,6 +49,7 @@ function App() {
       console.log(response.data);
       let response2 = await axios.get("https://localhost:44394/api/posts/", {headers: {Authorization: 'Bearer ' + token}})
       setUsersFeed(response2.data)
+      getAllShops()
       console.log(response2.data);
   }, [loading])
 
@@ -55,9 +58,18 @@ function App() {
     window.location.href = "/login";
   }
 
-  const getUsersFeed = async () => {
-    
+  const getAllShops = async () => {
+    let response = await axios.get("https://localhost:44394/api/shops/")
+    setAllShops(response.data)
   }
+
+  const getTacosFromShop = async (shopId) => {
+    let response = await axios.get(`https://localhost:44394/api/tacos/${shopId}`)
+    console.log(response.data);
+    setTacosFromShop(response.data)
+    console.log(tacosFromShop);
+  }
+
 
   const setUserToken = (token) => {
     localStorage.setItem("token", token);
@@ -73,7 +85,9 @@ function App() {
             <Route path="/"
             exact
             render={(props) => (<Home {...props} currentUser={currentUser}
-              currentToken={token} usersFeed={usersFeed} />
+              currentToken={token} usersFeed={usersFeed} allShops={allShops}
+              getTacosFromShop={getTacosFromShop}
+              tacosFromShop={tacosFromShop} />
             )} />
             <Route path="/Signup" render={(props) => <SignUpForm {...props} />} />
             <Route path="/RegisterShop" render={(props) => <RegisterShop {...props} 
