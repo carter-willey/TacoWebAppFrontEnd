@@ -5,6 +5,7 @@ import Home from './Components/Home/home';
 import LoginForm from './Components/LoginForm/loginForm';
 import SignUpForm from './Components/SignUpForm/signUpForm';
 import RegisterShop from './Components/RegisterShop/registerShop';
+import MapPage from './Components/MapPage/mapPage';
 import {
   BrowserRouter as Router,
   Switch,
@@ -98,6 +99,12 @@ function App() {
               path="/Login"
               render={(props) => (
                 <LoginForm {...props} setUserToken={setUserToken} />
+              )}
+            />
+            <Route
+              path="/Map"
+              render={(props) => (
+                <MapPage {...props} />
               )}
             />
           </Switch>
