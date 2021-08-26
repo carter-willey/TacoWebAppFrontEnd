@@ -1,36 +1,69 @@
+import React, {useState} from 'react';
+import {
+  GoogleMap,
+  useJsApiLoader,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+  MarkerClusterer,
+} from "@react-google-maps/api";
+import mapStyles from './mapStyles';
+import axios from 'axios';
 
-import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
-
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
-class MapPage extends Component {
-  static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33
-    },
-    zoom: 11
-  };
-
-  render() {
-    return (
-      // Important! Always set the container height explicitly
-      <div style={{ height: '100vh', width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "" }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          <AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text="My Marker"
-          />
-        </GoogleMapReact>
-      </div>
-    );
-  }
+const libraries = ["places"]
+const mapContainerStyle = {
+  width: "400px",
+  height: "400px",
+}
+const mapCenter = {
+  lat: 43.653225,
+  lng: -79.653225
+}
+const options = {
+  styles: mapStyles,
+  disableDefaultUI: true,
+  zoomControl: true,
 }
 
+const MapPage = (props) => {
+  const {allShops,} = props
+  const [map, setMap] = useState(null)
+  const [markers, set] = useState();
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries 
+  })
+  const onLoad = React.useCallback(function callback(map) {
+    const bounds = new window.google.maps.LatLngBounds();
+    map.fitBounds(bounds);
+    setMap(map)
+  }, [])
+
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null)
+  }, [])
+
+  const geoCode = async () => {
+    await axios.get
+  }
+
+
+  
+  return isLoaded ? (
+    <GoogleMap
+      mapContainerStyle={mapContainerStyle}
+      center={mapCenter}
+      zoom={10}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+    >
+      { /* Child components, such as markers, info windows, etc. */ }
+      <>
+      
+      </>
+    </GoogleMap>
+) : <></>
+}
+ 
 export default MapPage;

@@ -1,6 +1,17 @@
 import React, {useState} from 'react';  
 import axios from 'axios';
 import { useHistory} from 'react-router-dom';
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from 'use-places-autocomplete';
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption
+} from "@reach/combobox";
 
 
 const RegisterShop = (props) => {
@@ -23,7 +34,7 @@ const RegisterShop = (props) => {
         const addressError = {};
 
         let isValid = true;
-        if (eachEntry.shopname.trim().length === 0 ){
+        if (eachEntry.name.trim().length === 0 ){
             shopNameError.shopNameEmpty = "Shop name is required";
             isValid = false;
         }
@@ -58,7 +69,7 @@ const RegisterShop = (props) => {
         const isValid = signUpFormValidation();
         if(isValid){
           console.log(userData);
-            let response = await axios.post("https://localhost:44394/api/shop/", userData, { headers: {Authorization: 'Bearer ' + currentToken}});
+            let response = await axios.post("https://localhost:44394/api/shops/", userData, { headers: {Authorization: 'Bearer ' + currentToken}});
             console.log(response.data);
             if (response.data.length !== 0){
               shopHours.shopId = response.data.shopId;

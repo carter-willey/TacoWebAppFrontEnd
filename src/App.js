@@ -104,7 +104,7 @@ function App() {
             <Route
               path="/Map"
               render={(props) => (
-                <MapPage {...props} />
+                <MapPage {...props} allShops={allShops} />
               )}
             />
           </Switch>
