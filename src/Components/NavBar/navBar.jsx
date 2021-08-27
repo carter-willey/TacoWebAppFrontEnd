@@ -26,7 +26,7 @@ const NavBar = (props) => {
             <a className="nav-link" href="#">Notifications</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">Profile</a>
+            <a className="nav-link" as={Link} href="/userprofile">Profile</a>
           </li>
           <li>
           <a className="nav-link" href="#" as={Link} onClick={logout} >Logout</a>

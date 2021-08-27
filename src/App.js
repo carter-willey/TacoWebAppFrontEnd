@@ -16,6 +16,8 @@ import jwtDecode from "jwt-decode";
 import axios from 'axios';
 import {LoadScript} from '@react-google-maps/api';
 import AddTaco from './Components/AddTaco/addTaco';
+import UsersProfile from './Components/UserProfile/UserProfile';
+
 
 
 
@@ -28,6 +30,7 @@ function App() {
   const [usersFeed, setUsersFeed] = useState([]);
   const [allShops, setAllShops] = useState([]);
   const [tacosFromShop, setTacosFromShop] = useState([]);
+  const [userFromDb, setUserFromDb] = useState([]);
   
   useEffect(async () => {
     const jwtToken = localStorage.getItem("token");
@@ -48,17 +51,19 @@ function App() {
   }, []);
 
   useEffect( () => {
-    
-    //  let response = await axios.get("https://localhost:44394/api/users/user/", {headers: {Authorization: 'Bearer ' + token}})
-    //  console.log(response.data);
       getUserFeed()
+      getUserFromDb()
       console.log(currentUser);
       getAllShops()
   }, [loading])
 
   const getUserFeed = async () => {
     let response2 = await axios.get("https://localhost:44394/api/posts/", {headers: {Authorization: 'Bearer ' + token}})
-      setUsersFeed(response2.data)
+    setUsersFeed(response2.data)
+  }
+  const getUserFromDb = async () => {
+     let response = await axios.get("https://localhost:44394/api/users/user/", {headers: {Authorization: 'Bearer ' + token}})
+     setUserFromDb(response.data)
   }
 
   const logout = () => {
@@ -124,6 +129,12 @@ function App() {
               path="/AddTaco"
               render={(props) => (
                 <AddTaco {...props} currentUser={currentUser} allShops={allShops} currentToken={token} />
+              )}
+            />
+            <Route
+              path="/UserProfile"
+              render={(props) => (
+              <UsersProfile {...props} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} userFromDb={userFromDb} />
               )}
             />
           </Switch>
