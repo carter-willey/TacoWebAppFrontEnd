@@ -1,70 +1,47 @@
-import React, {useState} from 'react';
-import {
-  GoogleMap,
-  useJsApiLoader,
-  useLoadScript,
-  Marker,
-  InfoWindow,
-  MarkerClusterer,
-} from "@react-google-maps/api";
-import mapStyles from './mapStyles';
-import axios from 'axios';
+import React, {useState} from 'react'
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-const libraries = ["places"]
-const mapContainerStyle = {
-  width: "400px",
-  height: "400px",
-}
-const mapCenter = {
-  lat: 43.653225,
-  lng: -79.653225
-}
-const options = {
-  styles: mapStyles,
-  disableDefaultUI: true,
-  zoomControl: true,
-}
+const containerStyle = {
+  width: "100%",
+  height: "100%",
+};
 
-const MapPage = (props) => {
+const center = {
+  lat: 43.0389,
+  lng: -87.9065
+};
+
+function MapPage(props) {
+
   const {allShops,} = props
   const [map, setMap] = useState(null)
-  const [markers, set] = useState();
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries 
-  })
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
-    setMap(map)
-  }, [])
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
 
 
-  
-  return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={mapContainerStyle}
-      center={mapCenter}
-      zoom={10}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-    >
-      { /* Child components, such as markers, info windows, etc. */ }
+  return (
+    <div className="container-fluid main h-100">
+      <div className="row mainRow h-100">
+        <div className="col col-3 left"></div>
+        <div className="col middle "> 
+        
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={10}
+      >
+        { /* Child components, such as markers, info windows, etc. */ }
       <>
       {allShops.map((shop) =>{
    
-        <Marker key={shop.shopId} position={{lat: shop.lat, lng: shop.lng}} name={shop.name}
-        
-           />
+        return <Marker key={shop.shopId} position={{lat: shop.lat, lng: shop.lng}} name={shop.name}/>
       })}
       </>
-    </GoogleMap>
-) : <></>
+      </GoogleMap>
+            
+        </div>
+        <div className="col col-3 right"></div>
+      </div>
+    </div>
+    
+  )
 }
- 
 export default MapPage;

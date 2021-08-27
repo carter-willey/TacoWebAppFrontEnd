@@ -18,7 +18,7 @@ const NavBar = (props) => {
           <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Map</a>
+          <a className="nav-link" as={Link} href="/Map" >Map</a>
         </li>
         <li className="nav-item">
           <a className="nav-link" href="#">Notifications</a>

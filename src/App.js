@@ -4,7 +4,7 @@ import NavBar from './Components/NavBar/navBar';
 import Home from './Components/Home/home';
 import LoginForm from './Components/LoginForm/loginForm';
 import SignUpForm from './Components/SignUpForm/signUpForm';
-import RegisterShop from './Components/RegisterShop/registerShop';
+import RegisterShop from './Components/RegisterShop/registerShop'; 
 import MapPage from './Components/MapPage/mapPage';
 import {
   BrowserRouter as Router,
@@ -14,8 +14,11 @@ import {
 } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import axios from 'axios';
+import {LoadScript} from '@react-google-maps/api';
 
 
+
+const libraries = ["places"]
 
 function App() {
   const [token, setToken] = useState();
@@ -44,15 +47,18 @@ function App() {
     }
   }, []);
 
-  useEffect(async () => {
+  useEffect( () => {
     
-      let response = await axios.get("https://localhost:44394/api/users/user/", {headers: {Authorization: 'Bearer ' + token}})
-      console.log(response.data);
-      let response2 = await axios.get("https://localhost:44394/api/posts/", {headers: {Authorization: 'Bearer ' + token}})
-      setUsersFeed(response2.data)
+    //  let response = await axios.get("https://localhost:44394/api/users/user/", {headers: {Authorization: 'Bearer ' + token}})
+    //  console.log(response.data);
+      getUserFeed()
       getAllShops()
-      console.log(response2.data);
   }, [loading])
+
+  const getUserFeed = async () => {
+    let response2 = await axios.get("https://localhost:44394/api/posts/", {headers: {Authorization: 'Bearer ' + token}})
+      setUsersFeed(response2.data)
+  }
 
   const logout = () => {
     localStorage.clear();
@@ -62,6 +68,7 @@ function App() {
   const getAllShops = async () => {
     let response = await axios.get("https://localhost:44394/api/shops/")
     setAllShops(response.data)
+
   }
 
   const getTacosFromShop = async (shopId) => {
@@ -79,7 +86,12 @@ function App() {
   }
   return (
     <Router>
+
       {!loading &&
+       <LoadScript
+       googleMapsApiKey= {process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+       libraries={libraries}    
+     >
       <div>
           <NavBar logout={logout} currentUser={currentUser}  />
           <Switch>
@@ -109,6 +121,7 @@ function App() {
             />
           </Switch>
       </div>
+      </LoadScript>
     } 
     </Router>
   );
