@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, InfoWindow, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
   width: "100%",
@@ -14,7 +14,7 @@ const center = {
 function MapPage(props) {
 
   const {allShops,} = props
-  const [map, setMap] = useState(null)
+  const [selected, setSelected] = useState(null);
 
 
   return (
@@ -32,8 +32,29 @@ function MapPage(props) {
       <>
       {allShops.map((shop) =>{
    
-        return <Marker key={shop.shopId} position={{lat: shop.lat, lng: shop.lng}} name={shop.name}/>
+        return <Marker key={shop.shopId} clickable="true" 
+        onClick={() => {
+          setSelected(shop);
+        }}
+        position={{lat: shop.lat, lng: shop.lng}} name={shop.name}
+        />
+
       })}
+      {selected ? (
+          <InfoWindow
+            position={{ lat: selected.lat, lng: selected.lng }}
+            onCloseClick={() => {
+              setSelected(null);
+            }}
+          >
+            <div>
+              <h2>
+                {selected.name}
+              </h2>
+              <p></p>
+            </div>
+          </InfoWindow>
+        ) : null}
       </>
       </GoogleMap>
             
