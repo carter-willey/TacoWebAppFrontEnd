@@ -15,6 +15,7 @@ import {
 import jwtDecode from "jwt-decode";
 import axios from 'axios';
 import {LoadScript} from '@react-google-maps/api';
+import AddTaco from './Components/AddTaco/addTaco';
 
 
 
@@ -40,7 +41,6 @@ function App() {
         logout();
       }
       setCurrentUser({ user });
-      console.log(currentUser);
       setLoading(false)
     } catch {
       setLoading(false)
@@ -52,6 +52,7 @@ function App() {
     //  let response = await axios.get("https://localhost:44394/api/users/user/", {headers: {Authorization: 'Bearer ' + token}})
     //  console.log(response.data);
       getUserFeed()
+      console.log(currentUser);
       getAllShops()
   }, [loading])
 
@@ -117,6 +118,12 @@ function App() {
               path="/Map"
               render={(props) => (
                 <MapPage {...props} allShops={allShops} />
+              )}
+            />
+            <Route
+              path="/AddTaco"
+              render={(props) => (
+                <AddTaco {...props} currentUser={currentUser} allShops={allShops} currentToken={token} />
               )}
             />
           </Switch>
