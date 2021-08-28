@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {useState} from 'react';
 
-const CreatePost = (props) => {
+const CreateNotification = (props) => {
   const [filteredShops, setFilteredShops] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [rating, setRating] = useState(5);
@@ -66,68 +66,23 @@ const CreatePost = (props) => {
   return ( 
     <div className="card gedf-card">
     <div className="card-header">
-        <span>Check in a taco!</span>
+        <span>Post to your followers!</span>
     </div>
     <div className="card-body">
  
             <form className="form-group search" onSubmit={submitPost} >
-                <div className="searchInputs">
-                  <label >Shop:</label>
-                  <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={handleShopFilter}
-                    placeholder="Search By Shop Name..."
-                    className="form-control mb-3"
-                  />
-                  </div>
-                  
-                  <div className="searchResults">
-                    {filteredShops.map((shop, key) => {
-                      
-                      return (
-                        <a className="shopItem" onClick={() =>  handleShopSelected(shop.shopId, shop.name)}  target="_blank">
-                          <p>{shop.name}</p>
-                        </a>
-                      )
-                    })}
-                  </div>
-                  {isStoreSelected &&
-                  <div >
-                    <label>Taco:</label>
-                    <select className="form-control form-select mb-2" onChange={handleTacoIdChange}>
-                      <option key="0" value={null}>
-                        ----
-                      </option>
-                      {tacosFromShop.map((taco) => {
-                        return(
-                          <option key={taco.tacoId} value={taco.tacoId}>
-                            {taco.name}
-                          </option>
-                        )
-                      })}
-                    </select>
-                  </div>
-                  }
-
-              
-                    <label >Rating: </label>
-                    <input  type="number" min="1" max="5" className="form-control" value={rating}  placeholder="1-5" onChange={handleNumberChange}/>
-             
+                
       
-                  <label>Description:</label>
-                  <textarea className="form-control" rows="2" placeholder="How did you like the taco?!" value={tacoDescription} onChange={handleChange}/>
+                  <label>What would you like to post to your followers?:</label>
+                  <textarea className="form-control" rows="3" placeholder="What would you like to post?" value={tacoDescription} onChange={handleChange}/>
                   <div className="btn-group">
                     <button type="submit" className="btn btn-primary">Post</button>
                   </div>
               </form>
-            
-            
 
-        
     </div>
 </div>
    );
 }
  
-export default CreatePost;
+export default CreateNotification;

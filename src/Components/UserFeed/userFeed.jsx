@@ -15,7 +15,6 @@ const UserFeed = (props) => {
           </row>
           <row>
             {usersFeed.map((post) => {
-              console.log(post);
               return (
                 
                 <div className="card gedf-card">

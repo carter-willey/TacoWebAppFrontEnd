@@ -17,6 +17,7 @@ import axios from 'axios';
 import {LoadScript} from '@react-google-maps/api';
 import AddTaco from './Components/AddTaco/addTaco';
 import UsersProfile from './Components/UserProfile/UserProfile';
+import BusinessHome from './Components/BusinessHome/businessHome';
 
 
 
@@ -31,6 +32,8 @@ function App() {
   const [allShops, setAllShops] = useState([]);
   const [tacosFromShop, setTacosFromShop] = useState([]);
   const [userFromDb, setUserFromDb] = useState([]);
+  const [ownerStatus, setOwnerStatus] = useState();
+
   
   useEffect(async () => {
     const jwtToken = localStorage.getItem("token");
@@ -44,18 +47,33 @@ function App() {
         logout();
       }
       setCurrentUser({ user });
-      setLoading(false)
+      console.log(currentUser);
+      
+      
     } catch {
-      setLoading(false)
     }
   }, []);
 
   useEffect( () => {
+    if(ownerStatus == true){
+
+    }
+    else{
       getUserFeed()
-      getUserFromDb()
-      console.log(currentUser);
       getAllShops()
+    }
   }, [loading])
+
+  useEffect(() => {
+    if(currentUser){
+      checkOwnerStatus()
+      
+    }
+    setLoading(false)
+    
+  }, [currentUser])
+
+
 
   const getUserFeed = async () => {
     let response2 = await axios.get("https://localhost:44394/api/posts/", {headers: {Authorization: 'Bearer ' + token}})
@@ -90,15 +108,77 @@ function App() {
     setToken(token);
     window.location = "/";
   }
+
+  const checkOwnerStatus = () => {
+
+    let valueArr = Object.values(currentUser.user)
+    if(valueArr.includes("Admin")){
+      setOwnerStatus(true)
+      console.log("owner");
+    }
+    else if (valueArr.includes("User")){
+      setOwnerStatus(false)
+      console.log("user");
+    }
+    
+  }
   return (
     <Router>
-
-      {!loading &&
-       <LoadScript
+    <LoadScript
        googleMapsApiKey= {process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
        libraries={libraries}    
      >
+      {!loading && ownerStatus &&
+       
       <div>
+        busss
+          <NavBar logout={logout} currentUser={currentUser}  />
+          <Switch>
+            <Route path="/"
+            exact
+            render={(props) => (<BusinessHome {...props} currentUser={currentUser}
+              currentToken={token} usersFeed={usersFeed} allShops={allShops}
+              getTacosFromShop={getTacosFromShop}
+              tacosFromShop={tacosFromShop} />
+            )} />
+            <Route path="/Signup" render={(props) => <SignUpForm {...props} />} />
+            <Route path="/RegisterShop" render={(props) => <RegisterShop {...props} 
+              currentUser={currentUser}
+              currentToken={token}
+            />} />
+            <Route
+              path="/Login"
+              render={(props) => (
+                <LoginForm {...props} setUserToken={setUserToken} />
+              )}
+            />
+            <Route
+              path="/Map"
+              render={(props) => (
+                <MapPage {...props} allShops={allShops} />
+              )}
+            />
+            <Route
+              path="/AddTaco"
+              render={(props) => (
+                <AddTaco {...props} currentUser={currentUser} allShops={allShops} currentToken={token} />
+              )}
+            />
+            <Route
+              path="/UserProfile"
+              render={(props) => (
+              <UsersProfile {...props} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} userFromDb={userFromDb} />
+              )}
+            />
+          </Switch>
+      </div>
+      
+    } 
+
+    {!loading && !ownerStatus &&
+       
+      <div>
+        user
           <NavBar logout={logout} currentUser={currentUser}  />
           <Switch>
             <Route path="/"
@@ -139,8 +219,9 @@ function App() {
             />
           </Switch>
       </div>
-      </LoadScript>
+      
     } 
+    </LoadScript>
     </Router>
   );
 }
