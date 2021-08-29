@@ -5,14 +5,21 @@
 .middle {
   justify-content: center;
   text-align: center;
+  background-color:white;
 }
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   padding:0px;
+  background-color:white;
+}
+.main {
+  min-height: 100vh;
+  max-height: 100%;
 }
 body {
   min-height: 100vh;
+  background-color: #ffbf40;
 }
 

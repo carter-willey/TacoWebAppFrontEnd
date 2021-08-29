@@ -132,7 +132,7 @@ function App() {
        
       <div>
         busss
-          <NavBar logout={logout} currentUser={currentUser}  />
+          <NavBar logout={logout} currentUser={currentUser} ownerStatus={ownerStatus}  />
           <Switch>
             <Route path="/"
             exact
