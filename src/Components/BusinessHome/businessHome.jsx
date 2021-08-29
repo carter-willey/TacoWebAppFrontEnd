@@ -4,7 +4,7 @@ import home from '../Home/home.css'
 import CreateNotification from '../CreateNotifications/createNotification';
 
 const BusinessHome = (props) => {
-  const {currentUser, currentToken, usersFeed, allShops, getTacosFromShop, tacosFromShop} = props
+  const {currentUser, currentToken, usersFeed, allShops, getTacosFromShopByShopId, tacosFromShop} = props
   console.log(usersFeed);
   let businessFeed = usersFeed.filter((post) => {
     if(post.taco.shop.userId == currentUser.user.id)
@@ -17,7 +17,7 @@ const BusinessHome = (props) => {
         <div className="col col-3 left"></div>
         <div className="col middle "> 
             <CreateNotification allShops={allShops} currentToken={currentToken} currentUser={currentUser}
-             getTacosFromShop={getTacosFromShop}
+             getTacosFromShopByShopId={getTacosFromShopByShopId}
              tacosFromShop={tacosFromShop}/>
             <UserFeed currentUser={currentUser}
             currentToken={currentToken}

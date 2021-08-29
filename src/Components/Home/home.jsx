@@ -4,14 +4,14 @@ import UserFeed from '../UserFeed/userFeed';
 import home from './home.css'
 
 const Home = (props) => {
-  const {currentUser, currentToken, usersFeed, allShops, getTacosFromShop, tacosFromShop} = props
+  const {currentUser, currentToken, usersFeed, allShops, getTacosFromShopByShopId, tacosFromShop} = props
   return ( 
     <div className="container-fluid main">
       <div className="row mainRow">
         <div className="col col-3 left"></div>
         <div className="col middle "> 
             <CreatePost allShops={allShops} currentToken={currentToken} currentUser={currentUser}
-             getTacosFromShop={getTacosFromShop}
+             getTacosFromShopByShopId={getTacosFromShopByShopId}
              tacosFromShop={tacosFromShop}/>
             <UserFeed currentUser={currentUser}
             currentToken={currentToken}

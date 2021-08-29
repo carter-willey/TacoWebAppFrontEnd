@@ -5,7 +5,7 @@ import userProfile from "./userProfile.css"
 
 const UsersProfile = (props) => {
   const {currentUser, currentToken, userFromDb, usersFeed} = props
-  const [loading, setLoading] = useState(true);
+  //get request for users info, render page with user object received
   // const [specificUserFeed, setSpecificUserFeed] = useState([]);
 
   

@@ -6,6 +6,7 @@ import LoginForm from './Components/LoginForm/loginForm';
 import SignUpForm from './Components/SignUpForm/signUpForm';
 import RegisterShop from './Components/RegisterShop/registerShop'; 
 import MapPage from './Components/MapPage/mapPage';
+import Menu from './Components/Menu/menu';
 import {
   BrowserRouter as Router,
   Switch,
@@ -95,8 +96,15 @@ function App() {
 
   }
 
-  const getTacosFromShop = async (shopId) => {
+  const getTacosFromShopByShopId = async (shopId) => {
     let response = await axios.get(`https://localhost:44394/api/tacos/${shopId}`)
+    console.log(response.data);
+    setTacosFromShop(response.data)
+    console.log(tacosFromShop);
+  }
+
+  const getTacosFromShopByUserId = async () => {
+    let response = await axios.get(`https://localhost:44394/api/tacos/user/${currentUser.user.id}`, {headers: {Authorization: 'Bearer ' + token}})
     console.log(response.data);
     setTacosFromShop(response.data)
     console.log(tacosFromShop);
@@ -138,7 +146,7 @@ function App() {
             exact
             render={(props) => (<BusinessHome {...props} currentUser={currentUser}
               currentToken={token} usersFeed={usersFeed} allShops={allShops}
-              getTacosFromShop={getTacosFromShop}
+              getTacosFromShopByShopId={getTacosFromShopByShopId}
               tacosFromShop={tacosFromShop} />
             )} />
             <Route path="/Signup" render={(props) => <SignUpForm {...props} />} />
@@ -158,17 +166,18 @@ function App() {
                 <MapPage {...props} allShops={allShops} />
               )}
             />
-            <Route
-              path="/AddTaco"
-              render={(props) => (
-                <AddTaco {...props} currentUser={currentUser} allShops={allShops} currentToken={token} />
-              )}
-            />
+            
             <Route
               path="/UserProfile"
               render={(props) => (
               <UsersProfile {...props} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} userFromDb={userFromDb} />
               )}
+            />
+            <Route
+            path="/Menu"
+            render={(props) => (
+              <Menu getTacosFromShopByUserId={getTacosFromShopByUserId} setTacosFromShop={setTacosFromShop} currentToken={token} allShops={allShops} tacosFromShop={tacosFromShop} currentUser={currentUser} />
+            )}
             />
           </Switch>
       </div>
@@ -185,7 +194,7 @@ function App() {
             exact
             render={(props) => (<Home {...props} currentUser={currentUser}
               currentToken={token} usersFeed={usersFeed} allShops={allShops}
-              getTacosFromShop={getTacosFromShop}
+              getTacosFromShopByShopId={getTacosFromShopByShopId}
               tacosFromShop={tacosFromShop} />
             )} />
             <Route path="/Signup" render={(props) => <SignUpForm {...props} />} />
