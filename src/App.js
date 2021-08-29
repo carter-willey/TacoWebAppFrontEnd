@@ -34,6 +34,8 @@ function App() {
   const [tacosFromShop, setTacosFromShop] = useState([]);
   const [userFromDb, setUserFromDb] = useState([]);
   const [ownerStatus, setOwnerStatus] = useState();
+  const [userClickedOn, setUserClickedOn] = useState(null);
+
 
   
   useEffect(async () => {
@@ -74,14 +76,14 @@ function App() {
     
   }, [currentUser])
 
-
+  
 
   const getUserFeed = async () => {
     let response2 = await axios.get("https://localhost:44394/api/posts/", {headers: {Authorization: 'Bearer ' + token}})
     setUsersFeed(response2.data)
   }
-  const getUserFromDb = async () => {
-     let response = await axios.get("https://localhost:44394/api/users/user/", {headers: {Authorization: 'Bearer ' + token}})
+  const getUserFromDb = async (userId) => {
+     let response = await axios.get(`https://localhost:44394/api/examples/${userId}/`, {headers: {Authorization: 'Bearer ' + token}})
      setUserFromDb(response.data)
   }
 
@@ -109,7 +111,6 @@ function App() {
     setTacosFromShop(response.data)
     console.log(tacosFromShop);
   }
-
 
   const setUserToken = (token) => {
     localStorage.setItem("token", token);
@@ -188,12 +189,12 @@ function App() {
        
       <div>
         user
-          <NavBar logout={logout} currentUser={currentUser}  />
+          <NavBar logout={logout} getUserFromDb={getUserFromDb} currentUser={currentUser}  />
           <Switch>
             <Route path="/"
             exact
-            render={(props) => (<Home {...props} currentUser={currentUser}
-              currentToken={token} usersFeed={usersFeed} allShops={allShops}
+            render={(props) => (<Home {...props} setUserClickedOn={setUserClickedOn} currentUser={currentUser}
+              currentToken={token} usersFeed={usersFeed} allShops={allShops} getUserFromDb={getUserFromDb}
               getTacosFromShopByShopId={getTacosFromShopByShopId}
               tacosFromShop={tacosFromShop} />
             )} />
@@ -223,7 +224,7 @@ function App() {
             <Route
               path="/UserProfile"
               render={(props) => (
-              <UsersProfile {...props} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} userFromDb={userFromDb} />
+              <UsersProfile {...props} userFromDb={userFromDb}  getUserFromDb={getUserFromDb} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
               )}
             />
           </Switch>

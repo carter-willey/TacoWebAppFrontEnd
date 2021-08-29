@@ -1,8 +1,9 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 
 const UserFeed = (props) => {
-  const {currentUser, currentToken, usersFeed} = props
+  const {currentUser, currentToken, usersFeed, getUserFromDb} = props
   
   
   return ( 
@@ -35,9 +36,10 @@ const UserFeed = (props) => {
                     </div>
                     <div className="card-body">
                         <div className="text-muted h7 mb-2"> <i className="fa fa-clock-o"></i>10 min ago</div>
-                        <a className="card-link" href="#">
-                            <h5 className="card-title">{post.user.userName} checked in the {post.taco.name}!</h5>
-                        </a>
+                        
+                            <Link to="/userprofile"  onClick={() => { getUserFromDb(post.user.id)}}
+                            >{post.user.userName} checked in the {post.taco.name}!</Link>
+                    
 
                         <p className="card-text">
                             {post.description}

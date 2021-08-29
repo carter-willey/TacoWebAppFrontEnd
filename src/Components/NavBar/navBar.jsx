@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 const NavBar = (props) => {
-  const {currentUser, logout, ownerStatus }= props
+  const {currentUser, logout, ownerStatus, getUserFromDb, setIsOwnProfile } = props
   return ( 
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
      {/* if current use is not business owner */}
@@ -54,19 +54,19 @@ const NavBar = (props) => {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
-            <Link className="nav-link" href="#">Home <span className="sr-only">(current)</span></Link>
+            <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" as={Link} href="/Map" >Map</Link>
+            <Link className="nav-link" as={Link} to="/Map" >Map</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" href="#">Notifications</Link>
+            <Link className="nav-link"  to="/">Notifications</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" as={Link} href="/userprofile">Profile</Link>
+          <Link className="nav-link" onClick={() => getUserFromDb(currentUser.user.id)} to="/userprofile" >Profile</Link>
           </li>
           <li>
-          <Link className="nav-link" href="/login" as={Link} onClick={logout} >Logout</Link>
+          <Link className="nav-link" to="/login" as={Link} onClick={logout} >Logout</Link>
           </li>
         </ul>
         <form className="searchBar form-inline my-2 my-lg-0">
