@@ -2,19 +2,25 @@ import axios from 'axios';
 import React, {useState} from 'react';
 
 const CreatePost = (props) => {
+  const initFields = {
+    searchTerm: "",
+    rating: 5,
+    description: "",
+  }
+
   const [filteredShops, setFilteredShops] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [rating, setRating] = useState(5);
+  const [searchTerm, setSearchTerm] = useState(initFields.searchTerm);
+  const [rating, setRating] = useState(initFields.rating);
   const [isStoreSelected, setIsStoreSelected] = useState(false);
   const [tacoToPostId, setTacoToPostId] = useState(0);
-  const [tacoDescription, setTacoDescription] = useState("");
+  const [tacoDescription, setTacoDescription] = useState(initFields.description);
   const {allShops, currentUser, currentToken, getTacosFromShopByShopId, tacosFromShop} = props
 
   const postFields = {
-    UserId: currentUser.user.id,
-    TacoId: Number(`${tacoToPostId}`),
-    Rating: rating,
-    Description: tacoDescription,
+    userId: currentUser.user.id,
+    tacoId: Number(`${tacoToPostId}`),
+    rating: Number(`${rating}`),
+    description: tacoDescription,
   }
   const handleShopFilter = (event) => {
     const search = event.target.value
@@ -34,7 +40,12 @@ const CreatePost = (props) => {
 
   const submitPost = async (event) => {
     event.preventDefault();
+    console.log(postFields);
     await axios.post("https://localhost:44394/api/posts/", postFields, {headers: {Authorization: 'Bearer ' + currentToken}})
+    await axios.put(`https://localhost:44394/api/tacos/${postFields.tacoId}/${postFields.rating}`)
+    setSearchTerm(initFields.searchTerm)
+    setRating(initFields.rating)
+    setTacoDescription(initFields.description)
     console.log("posted!");
   }
 

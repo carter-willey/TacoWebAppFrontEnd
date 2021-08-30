@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { GoogleMap, InfoWindow, Marker } from '@react-google-maps/api';
+import { Link } from 'react-router-dom';
 
 const containerStyle = {
   width: "100%",
@@ -12,9 +13,17 @@ const center = {
 };
 
 function MapPage(props) {
-
-  const {allShops,} = props
+  const {getShopFromArr, getTacosFromShopByShopId, tacosFromShop, allShops} = props
+  const [totalAvg, setTotalAvg] = useState(0);
   const [selected, setSelected] = useState(null);
+
+  useEffect(()=>{
+    let counter = 0;
+    tacosFromShop.forEach(taco => {
+      counter += taco.averageRating
+    });
+    setTotalAvg(counter/tacosFromShop.length)
+  },[tacosFromShop])
 
 
   return (
@@ -32,8 +41,9 @@ function MapPage(props) {
       <>
       {allShops.map((shop) =>{
    
-        return <Marker key={shop.shopId} clickable="true" 
+        return <Marker key={shop.shopId}  clickable="true" 
         onClick={() => {
+          getTacosFromShopByShopId(shop.shopId)
           setSelected(shop);
         }}
         position={{lat: shop.lat, lng: shop.lng}} name={shop.name}
@@ -49,9 +59,12 @@ function MapPage(props) {
           >
             <div>
               <h2>
-                {selected.name}
+                <Link to="/viewshop" onClick={() => { getShopFromArr(selected.shopId)}}>{selected.name}</Link>
               </h2>
-              <p></p>
+              <p>
+                {selected.address}<br/>
+                {totalAvg.toFixed(2)}/5
+              </p>
             </div>
           </InfoWindow>
         ) : null}

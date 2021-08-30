@@ -263,7 +263,7 @@ function App() {
             <Route
               path="/Map"
               render={(props) => (
-                <MapPage {...props} allShops={allShops} />
+                <MapPage {...props} allShops={allShops} tacosFromShop={tacosFromShop} getTacosFromShopByShopId={getTacosFromShopByShopId} getShopFromArr={getShopFromArr} />
               )}
             />
             <Route
