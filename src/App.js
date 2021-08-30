@@ -66,7 +66,7 @@ function App() {
 
   useEffect( () => {
     if(ownerStatus == true){
-      getShopHours()
+      getAllShops()
 
     }
     else{
@@ -186,7 +186,7 @@ function App() {
        
       <div>
         busss
-          <NavBar logout={logout} currentUser={currentUser} ownerStatus={ownerStatus}  />
+          <NavBar logout={logout} currentUser={currentUser} getShopHours={getShopHours} ownerStatus={ownerStatus}  />
           <Switch>
             <Route path="/"
             exact
@@ -228,7 +228,7 @@ function App() {
             <Route
               path="/yourshop"
               render={(props) => (
-              <YourShop {...props} allShopHours={allShopHours}  currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
+              <YourShop {...props} allShopHours={allShopHours} getAllShops={getAllShops} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
               )}
             />
           </Switch>

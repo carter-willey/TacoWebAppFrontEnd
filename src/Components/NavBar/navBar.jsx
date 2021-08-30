@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 const NavBar = (props) => {
-  const {currentUser, logout, ownerStatus, getUserFromDb, getNotifications, setIsOwnProfile } = props
+  const {currentUser, logout, ownerStatus, getUserFromDb, getNotifications, setIsOwnProfile, getShopHours } = props
   return ( 
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
      {/* if current use is not business owner */}
@@ -30,7 +30,7 @@ const NavBar = (props) => {
             <Link className="nav-link" to="/Menu" as={Link}>Menu</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" as={Link} to="/yourshop">Your Shop</Link>
+            <Link className="nav-link" as={Link} to="/yourshop" onClick={() => {getShopHours()}}>Your Shop</Link>
           </li>
           <li>
           <Link className="nav-link" href="/login" as={Link} onClick={logout} >Logout</Link>

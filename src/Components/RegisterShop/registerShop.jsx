@@ -1,4 +1,4 @@
-import React, {useState} from 'react';  
+import React, {useEffect, useState} from 'react';  
 import axios from 'axios';
 import { useHistory} from 'react-router-dom';
 import usePlacesAutocomplete, {
@@ -6,6 +6,7 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from 'use-places-autocomplete';
 import ShopAddressSearch from '../ShopAddressSearch/shopAddressSearch';
+import registerShop from "./registerShop.css"
 
 
 const RegisterShop = (props) => {
@@ -26,7 +27,7 @@ const RegisterShop = (props) => {
       address: address,
       lat: lat,
       lng: lng,       
-  }
+    }
 
 
 
@@ -81,11 +82,11 @@ const RegisterShop = (props) => {
         }
     }
     return (
-        <div className="container-fluid"> 
-            <div className="row">
+        <div className="container-fluid "> 
+            <div className="row ">
                 <div className="col sm-4 side"></div>
                 <div className="col sm-4">
-                <div>
+                <div  >
                     <h1 className="title">{currentUser.user.username}, Register your shop!</h1>
                     <form onSubmit={handleSubmit}>
                         <div>
@@ -101,84 +102,126 @@ const RegisterShop = (props) => {
                     {/* <input  className="form-control" value={eachEntry.address} name="address" placeholder="Address..." onChange={handleChange}></input> */}
                     
                     </div>
-                    <h5 className="signupTitle">Monday Open:</h5>
-                    <form>
-                      <label for="1open">Select a time:</label>
-                      <input type="time" name="MonOpen"  onChange={handleTimeChange}/>
-                    </form>
-                    <h5 className="signupTitle">Monday Close:</h5>
-                    <form>
-                      <label for="1.close">Select a time:</label>
-                      <input type="time"  name="MonClose"  onChange={handleTimeChange}/>
-                    </form>
+                    <div className="row mb-4 mt-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Monday Open:</h5>
+                        <form>
+                          <label for="1open">Select a time:</label>
+                          <input type="time" name="monOpen"  onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                      <div>
+                        <h5 className="signupTitle">Monday Close:</h5>
+                        <form>
+                          <label for="1.close">Select a time:</label>
+                          <input type="time"  name="monClose"  onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                    </div>
+                    
+                    <div className="row mb-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Tuesday Open:</h5>
+                        <form>
+                          <label for="2open">Select a time:</label>
+                          <input type="time" id="2open" name="tuesOpen" onChange={handleTimeChange} />
+                        </form>
+                      </div>
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Tuesday Close:</h5>
+                        <form>
+                          <label for="2close">Select a time:</label>
+                          <input type="time" id="2close" name="tuesClose"  onChange={handleTimeChange} />
+                        </form>
+                      </div>
+                    </div>
 
-                    <h5 className="signupTitle">Tuesday Open:</h5>
-                    <form>
-                      <label for="2open">Select a time:</label>
-                      <input type="time" id="2open" name="TuesOpen" onChange={handleTimeChange} />
-                    </form>
-                    <h5 className="signupTitle">Tuesday Close:</h5>
-                    <form>
-                      <label for="2close">Select a time:</label>
-                      <input type="time" id="2close" name="TuesClose"  onChange={handleTimeChange} />
-                    </form>
+                    <div className="row mb-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Wednesday Open:</h5>
+                        <form>
+                          <label for="3open">Select a time:</label>
+                          <input type="time" id="3open" name="wedOpen"  onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Wednesday Close:</h5>
+                        <form>
+                          <label for="3close">Select a time:</label>
+                          <input type="time" id="3close" name="wedClose"  onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                    </div>
 
-                    <h5 className="signupTitle">Wednesday Open:</h5>
-                    <form>
-                      <label for="3open">Select a time:</label>
-                      <input type="time" id="3open" name="WedOpen"  onChange={handleTimeChange}/>
-                    </form>
-                    <h5 className="signupTitle">Wednesday Close:</h5>
-                    <form>
-                      <label for="3close">Select a time:</label>
-                      <input type="time" id="3close" name="WedClose"  onChange={handleTimeChange}/>
-                    </form>
+                    <div className="row mb-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Thursday Open:</h5>
+                        <form>
+                          <label for="4open">Select a time:</label>
+                          <input type="time" id="4open" name="thursOpen"  onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Thursday Close:</h5>
+                        <form>
+                          <label for="4close">Select a time:</label>
+                          <input type="time" id="4close" name="thursClose" onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                    </div>
+                    
+                    <div className="row mb-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Friday Open:</h5>
+                        <form>
+                          <label for="5open">Select a time:</label>
+                          <input type="time" id="5open" name="friOpen"  onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Friday Close:</h5>
+                        <form>
+                          <label for="5close">Select a time:</label>
+                          <input type="time" id="5close" name="friClose" onChange={handleTimeChange} />
+                        </form>
+                      </div>
+                    </div>
 
-                    <h5 className="signupTitle">Thursday Open:</h5>
-                    <form>
-                      <label for="4open">Select a time:</label>
-                      <input type="time" id="4open" name="ThursOpen"  onChange={handleTimeChange}/>
-                    </form>
-                    <h5 className="signupTitle">Thursday Close:</h5>
-                    <form>
-                      <label for="4close">Select a time:</label>
-                      <input type="time" id="4close" name="ThursClose" onChange={handleTimeChange}/>
-                    </form>
+                    <div className="row mb-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Saturday Open:</h5>
+                        <form>
+                          <label for="6open">Select a time:</label>
+                          <input type="time" id="6open" name="satOpen" onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Saturday Close:</h5>
+                        <form>
+                          <label for="6close">Select a time:</label>
+                          <input type="time" id="6close" name="satClose" onChange={handleTimeChange} />
+                        </form>
+                      </div>
+                    </div>
 
-                    <h5 className="signupTitle">Friday Open:</h5>
-                    <form>
-                      <label for="5open">Select a time:</label>
-                      <input type="time" id="5open" name="FriOpen"  onChange={handleTimeChange}/>
-                    </form>
-                    <h5 className="signupTitle">Friday Close:</h5>
-                    <form>
-                      <label for="5close">Select a time:</label>
-                      <input type="time" id="5close" name="FriClose" onChange={handleTimeChange} />
-                    </form>
+                    <div className="row mb-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Sunday Open:</h5>
+                        <form>
+                          <label for="7open">Select a time:</label>
+                          <input type="time" id="7open" name="sunOpen"  onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Sunday Close:</h5>
+                        <form>
+                          <label for="7close">Select a time:</label>
+                          <input type="time" id="7close" name="sunClose"  onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                    </div>
 
-                    <h5 className="signupTitle">Saturday Open:</h5>
-                    <form>
-                      <label for="6open">Select a time:</label>
-                      <input type="time" id="6open" name="SatOpen" onChange={handleTimeChange}/>
-                    </form>
-                    <h5 className="signupTitle">Saturday Close:</h5>
-                    <form>
-                      <label for="6close">Select a time:</label>
-                      <input type="time" id="6close" name="SatClose" onChange={handleTimeChange} />
-                    </form>
-
-                    <h5 className="signupTitle">Sunday Open:</h5>
-                    <form>
-                      <label for="7open">Select a time:</label>
-                      <input type="time" id="7open" name="SunOpen"  onChange={handleTimeChange}/>
-                    </form>
-                    <h5 className="signupTitle">Sunday Close:</h5>
-                    <form>
-                      <label for="7close">Select a time:</label>
-                      <input type="time" id="7close" name="SunClose"  onChange={handleTimeChange}/>
-                    </form>
-
-                    <button className="mt-2 mb-1" type="submit">Register Shop</button>
+                    <button className="mt-2 mb-1 register" type="submit">Register Shop</button>
                     </form>
                     </div>
                 </div>

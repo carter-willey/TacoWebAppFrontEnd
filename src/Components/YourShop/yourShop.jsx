@@ -11,7 +11,7 @@ import ShopAddressSearch from '../ShopAddressSearch/shopAddressSearch';
 
 
 const YourShop = (props) => {
-  const {currentToken, currentUser, allShops, allShopHours} = props;
+  const {currentToken, currentUser, allShops, allShopHours, getAllShops} = props;
   const [thisShopHours, setThisShopHours] = useState([]);
   const [thisShop, setThisShop] = useState([]);
   const history = useHistory()
@@ -39,11 +39,12 @@ const YourShop = (props) => {
   }
 
   const filterShopHours = () =>{
+    console.log(allShopHours);
     allShopHours.filter((shop) => {
       if(shop.shopId == thisShop.shopId)
       setThisShopHours(shop)
     })
-    console.log(thisShopHours);
+    
   }
 
   let eachTimeEntryInit;
@@ -106,9 +107,7 @@ const YourShop = (props) => {
         Register();
         
     }
-    const handleChange = (event) => {
-        setName(event.target.value);
-      };
+
       
       const handleTimeChange = (event) => {
         setEachTimeEntry({...eachTimeEntry, [event.target.name]: event.target.value})
@@ -132,7 +131,8 @@ const YourShop = (props) => {
                 
                 await axios.post("https://localhost:44394/api/notifications/", notificationFields, {headers: {Authorization: 'Bearer ' + currentToken}})
              }
-              }              
+              }        
+                getAllShops()     
                 history.push("/")
             }
         
@@ -143,94 +143,135 @@ const YourShop = (props) => {
             <div className="row">
                 <div className="col sm-4 side"></div>
                 <div className="col sm-4">
-                <div>
-                    <h1 className="title">{currentUser.user.username}, would you like to update your shop?</h1>
+                <div  >
+                <h1 className="title">{currentUser.user.username}, would you like to update your shop?</h1>
                     <form onSubmit={handleSubmit}>
                                             
                     <h5 className="signupTitle">Shop Address:</h5>
                     <div>
                     <ShopAddressSearch thisShop={thisShop} setAddress={setAddress} setLat={setLat} setLng={setLng}/>
-                    {/* <input  className="form-control" value={eachEntry.address} name="address" placeholder="Address..." onChange={handleChange}></input> */}
-                    
+                    {/* <input  className="form-control" value={eachEntry.address} name="address" placeholder="Address..." onChange={handleChange}></input> */}               
                     </div>
-                    <h5 className="signupTitle">Monday Open:</h5>
-                    <form>
-                      <label for="1open">Select a time:</label>
-                      <input type="time" name="monOpen" value={eachTimeEntry.monOpen}  onChange={handleTimeChange} />
-                    </form>
-                    <h5 className="signupTitle">Monday Close:</h5>
-                    <form>
-                      <label for="1.close">Select a time:</label>
-                      <input type="time"  name="monClose" value={eachTimeEntry.monClose} onChange={handleTimeChange} />
-                    </form>
+                    <div className="row mb-4 mt-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Monday Open:</h5>
+                        <form>
+                          <label for="1open">Select a time:</label>
+                          <input type="time" name="monOpen" value={eachTimeEntry.monOpen}  onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                      <div>
+                        <h5 className="signupTitle">Monday Close:</h5>
+                        <form>
+                          <label for="1.close">Select a time:</label>
+                          <input type="time"  name="monClose" value={eachTimeEntry.monClose} onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                    </div>
+                    
+                    <div className="row mb-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Tuesday Open:</h5>
+                        <form>
+                          <label for="2open">Select a time:</label>
+                          <input type="time" id="2open" name="tuesOpen" value={eachTimeEntry.tuesOpen} onChange={handleTimeChange} />
+                        </form>
+                      </div>
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Tuesday Close:</h5>
+                        <form>
+                          <label for="2close">Select a time:</label>
+                          <input type="time" id="2close" name="tuesClose" value={eachTimeEntry.tuesClose} onChange={handleTimeChange} />
+                        </form>
+                      </div>
+                    </div>
 
-                    <h5 className="signupTitle">Tuesday Open:</h5>
-                    <form>
-                      <label for="2open">Select a time:</label>
-                      <input type="time" id="2open" name="tuesOpen" value={eachTimeEntry.tuesOpen} d onChange={handleTimeChange}  />
-                    </form>
-                    <h5 className="signupTitle">Tuesday Close:</h5>
-                    <form>
-                      <label for="2close">Select a time:</label>
-                      <input type="time" id="2close" name="tuesClose" value={eachTimeEntry.tuesClose} onChange={handleTimeChange} />
-                    </form>
+                    <div className="row mb-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Wednesday Open:</h5>
+                        <form>
+                          <label for="3open">Select a time:</label>
+                          <input type="time" id="3open" name="wedOpen" value={eachTimeEntry.wedOpen} onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Wednesday Close:</h5>
+                        <form>
+                          <label for="3close">Select a time:</label>
+                          <input type="time" id="3close" name="wedClose" value={eachTimeEntry.wedClose} onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                    </div>
 
-                    <h5 className="signupTitle">Wednesday Open:</h5>
-                    <form>
-                      <label for="3open">Select a time:</label>
-                      <input type="time" id="3open" name="wedOpen" value={eachTimeEntry.wedOpen} onChange={handleTimeChange} />
-                    </form>
-                    <h5 className="signupTitle">Wednesday Close:</h5>
-                    <form>
-                      <label for="3close">Select a time:</label>
-                      <input type="time" id="3close" name="wedClose" value={eachTimeEntry.wedClose} onChange={handleTimeChange} />
-                    </form>
+                    <div className="row mb-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Thursday Open:</h5>
+                        <form>
+                          <label for="4open">Select a time:</label>
+                          <input type="time" id="4open" name="thursOpen" value={eachTimeEntry.thursOpen} onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Thursday Close:</h5>
+                        <form>
+                          <label for="4close">Select a time:</label>
+                          <input type="time" id="4close" name="thursClose" value={eachTimeEntry.thursClose} onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                    </div>
+                    
+                    <div className="row mb-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Friday Open:</h5>
+                        <form>
+                          <label for="5open">Select a time:</label>
+                          <input type="time" id="5open" name="friOpen" value={eachTimeEntry.friOpen} onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Friday Close:</h5>
+                        <form>
+                          <label for="5close">Select a time:</label>
+                          <input type="time" id="5close" name="friClose" value={eachTimeEntry.friClose} onChange={handleTimeChange} />
+                        </form>
+                      </div>
+                    </div>
 
-                    <h5 className="signupTitle">Thursday Open:</h5>
-                    <form>
-                      <label for="4open">Select a time:</label>
-                      <input type="time" id="4open" name="thursOpen" value={eachTimeEntry.thursOpen} onChange={handleTimeChange} />
-                    </form>
-                    <h5 className="signupTitle">Thursday Close:</h5>
-                    <form>
-                      <label for="4close">Select a time:</label>
-                      <input type="time" id="4close" name="thursClose" value={eachTimeEntry.thursClose} onChange={handleTimeChange} />
-                    </form>
+                    <div className="row mb-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Saturday Open:</h5>
+                        <form>
+                          <label for="6open">Select a time:</label>
+                          <input type="time" id="6open" name="satOpen" value={eachTimeEntry.satOpen} onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Saturday Close:</h5>
+                        <form>
+                          <label for="6close">Select a time:</label>
+                          <input type="time" id="6close" name="satClose" value={eachTimeEntry.satClose} onChange={handleTimeChange} />
+                        </form>
+                      </div>
+                    </div>
 
-                    <h5 className="signupTitle">Friday Open:</h5>
-                    <form>
-                      <label for="5open">Select a time:</label>
-                      <input type="time" id="5open" name="friOpen" value={eachTimeEntry.friOpen} onChange={handleTimeChange} />
-                    </form>
-                    <h5 className="signupTitle">Friday Close:</h5>
-                    <form>
-                      <label for="5close">Select a time:</label>
-                      <input type="time" id="5close" name="friClose"  value={eachTimeEntry.friClose} onChange={handleTimeChange}  />
-                    </form>
+                    <div className="row mb-4">
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Sunday Open:</h5>
+                        <form>
+                          <label for="7open">Select a time:</label>
+                          <input type="time" id="7open" name="sunOpen" value={eachTimeEntry.sunOpen} onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                      <div className="mr-4">
+                        <h5 className="signupTitle">Sunday Close:</h5>
+                        <form>
+                          <label for="7close">Select a time:</label>
+                          <input type="time" id="7close" name="sunClose" value={eachTimeEntry.sunClose} onChange={handleTimeChange}/>
+                        </form>
+                      </div>
+                    </div>
 
-                    <h5 className="signupTitle">Saturday Open:</h5>
-                    <form>
-                      <label for="6open">Select a time:</label>
-                      <input type="time" id="6open" name="satOpen" value={eachTimeEntry.satOpen} onChange={handleTimeChange} />
-                    </form>
-                    <h5 className="signupTitle">Saturday Close:</h5>
-                    <form>
-                      <label for="6close">Select a time:</label>
-                      <input type="time" id="6close" name="satClose" value={eachTimeEntry.satClose} onChange={handleTimeChange} />
-                    </form>
-
-                    <h5 className="signupTitle">Sunday Open:</h5>
-                    <form>
-                      <label for="7open">Select a time:</label>
-                      <input type="time" id="7open" name="sunOpen" value={eachTimeEntry.sunOpen}   onChange={handleTimeChange} />
-                    </form>
-                    <h5 className="signupTitle">Sunday Close:</h5>
-                    <form>
-                      <label for="7close">Select a time:</label>
-                      <input type="time" id="7close" name="sunClose" value={eachTimeEntry.sunClose}  onChange={handleTimeChange} />
-                    </form>
-
-                    <button className="mt-2 mb-1" type="submit">Update your shop!</button>
+                    <button className="mt-2 mb-1 register" type="submit">Update Shop</button>
                     </form>
                     </div>
                 </div>
@@ -242,3 +283,4 @@ const YourShop = (props) => {
 }
 
 export default YourShop
+
