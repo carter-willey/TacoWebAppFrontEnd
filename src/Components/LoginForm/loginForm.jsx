@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import './loginForm.css'
 import axios from 'axios';
 import { useHistory, Link} from 'react-router-dom';
 import { toast } from 'react-toastify';
+import logo from './transparentLogo.png'
 
 
 const LoginForm = (props) => {
@@ -39,8 +41,9 @@ const logIn = async () => {
     <div className="container">
             <div className="row">
                 <div className="col sm-4"></div>
-                <div className="col sm-4">
+                <div className="col sm-4 d-flex justify-content-center">
                 <div>
+                  <img src={logo} height="300rem" alt="" />
                     <h1 className="title">Login</h1>
                     <form onSubmit={handleSubmit}>
                       <div>
@@ -50,9 +53,11 @@ const logIn = async () => {
                     <div>
                       <h5 className="signupTitle">Password:</h5>
                     <input className="form-control" type="password" name="password" placeholder="Please enter your password..." onChange={handleChange}></input>
-                    <button  type="submit" className="mt-2">Login</button>
+                    
+                    <button type="submit" class="btn btn-light mt-2 ms-2 mx-5" >Login</button>
                     <Link to="/Signup">
-                    <button  type="submit" className="mt-2 ms-2">Signup</button>
+                    <button type="submit" class="btn btn-light mt-2 ms-2">Signup</button>
+                    
                     </Link>
                     </div>
                     </form>

@@ -1,4 +1,6 @@
 import React from 'react';
+import navlogo from '../NavBar/navlogo.png'
+import navBar from './navBar.css'
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,11 +12,11 @@ import {
 const NavBar = (props) => {
   const {currentUser, logout, ownerStatus, getUserFromDb, getNotifications, setIsOwnProfile, getShopHours } = props
   return ( 
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg" style={{backgroundColor: "#f5bd3b"}} >
      {/* if current use is not business owner */}
     {currentUser && ownerStatus &&
     <>
-      <a className="navbar-brand" >Welcome to Tacodex, {currentUser.user.username}!</a>
+      <a className="navbar-brand" ><img src={navlogo}></img>{currentUser.user.username}!</a>
       
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
@@ -45,7 +47,7 @@ const NavBar = (props) => {
     }
     {currentUser && !ownerStatus &&
     <>
-      <a className="navbar-brand" >Welcome to Tacodex, {currentUser.user.username}!</a>
+      <a href="#" class="navbar-left"><img src={navlogo} height="50px" /></a>
       
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>

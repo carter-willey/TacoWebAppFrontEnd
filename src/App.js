@@ -185,7 +185,6 @@ function App() {
       {!loading && ownerStatus &&
        
       <div>
-        busss
           <NavBar logout={logout} currentUser={currentUser} getShopHours={getShopHours} ownerStatus={ownerStatus}  />
           <Switch>
             <Route path="/"
@@ -239,7 +238,6 @@ function App() {
     {!loading && !ownerStatus &&
        
       <div>
-        user
           <NavBar logout={logout} getUserFromDb={getUserFromDb} getNotifications={getNotifications} currentUser={currentUser}  />
           <Switch>
             <Route path="/"

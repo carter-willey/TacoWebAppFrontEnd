@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import { useHistory} from 'react-router-dom';
 import './signUpForm.css';
+import logo from './transparentLogo.png'
 
 const SignUpForm = () => {
     const initialUserInfo = {
@@ -84,8 +85,9 @@ const SignUpForm = () => {
         <div className="container-fluid">
             <div className="row">
                 <div className="col sm-4 side"></div>
-                <div className="col sm-4">
+                <div className="col sm-4 d-flex justify-content-center">
                 <div>
+                <img src={logo} height="300rem" alt="" />
                     <h1 className="title">Signup</h1>
                     <form onSubmit={handleSubmit}>
                         <div>

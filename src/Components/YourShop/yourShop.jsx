@@ -117,7 +117,7 @@ const YourShop = (props) => {
     const Register = async () => {
         let userData = eachEntry;
         let shopHours = eachTimeEntry;
-        notificationFields.text = `${thisShop.shopName} updated their store info!`
+        notificationFields.text = `${thisShop.name} updated their store info!`
         
 
           console.log(userData);

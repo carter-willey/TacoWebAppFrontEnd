@@ -15,12 +15,14 @@ const CreatePost = (props) => {
   const [tacoToPostId, setTacoToPostId] = useState(0);
   const [tacoDescription, setTacoDescription] = useState(initFields.description);
   const {allShops, currentUser, currentToken, getTacosFromShopByShopId, tacosFromShop} = props
+  const [imgSrc, setImgSrc] = useState("https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png");
 
   const postFields = {
     userId: currentUser.user.id,
     tacoId: Number(`${tacoToPostId}`),
     rating: Number(`${rating}`),
     description: tacoDescription,
+    image: imgSrc,
   }
   const handleShopFilter = (event) => {
     const search = event.target.value
@@ -36,6 +38,28 @@ const CreatePost = (props) => {
       setFilteredShops(newFilter)
     }
   }
+
+  const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    try{
+    reader.readAsDataURL(file)
+    }
+    catch{
+      postFields.image = ""
+    }   
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = error => reject(error)
+})
+
+  const handleFile = async (event) => {
+
+    let file = event.target.files[0]
+    let response = await toBase64(file);
+    var img = new Image()
+    img.src = postFields.image
+    setImgSrc(img.src)
+}
+
 
 
   const submitPost = async (event) => {
@@ -75,13 +99,18 @@ const CreatePost = (props) => {
     setTacoToPostId(event.target.value)
   }
   return ( 
-    <div className="card gedf-card">
-    <div className="card-header">
+    <div className="card gedf-card my-5">
+    <div className="card-header" >
         <span>Check in a taco!</span>
     </div>
     <div className="card-body">
- 
+    
             <form className="form-group search" onSubmit={submitPost} >
+            <div className="row ">
+              <div className="col">
+                <img src={imgSrc} height="300px" alt=""></img>              
+              </div>
+              <div className="col">
                 <div className="searchInputs">
                   <label >Shop:</label>
                   <input
@@ -128,13 +157,18 @@ const CreatePost = (props) => {
       
                   <label>Description:</label>
                   <textarea className="form-control" rows="2" placeholder="How did you like the taco?!" value={tacoDescription} onChange={handleChange}/>
+                  <label>Upload Image:</label>
+                  <input className=" form-control" type="file" onChange={(event) => handleFile(event)}  name="Image">
+                  </input>
                   <div className="btn-group">
                     <button type="submit" className="btn btn-primary">Post</button>
+                  </div>
+                  </div>
                   </div>
               </form>
             
             
-
+              
         
     </div>
 </div>
