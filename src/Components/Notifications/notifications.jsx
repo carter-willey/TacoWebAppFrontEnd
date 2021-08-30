@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 
 const Notifications = (props) => {
-  const {currentUser, notifications, getUserFromDb, allShops} = props
+  const {currentUser, notifications, getShopFromArr, allShops} = props
   // const [, set] = useState();
   console.log(allShops);
   
@@ -37,8 +37,8 @@ const Notifications = (props) => {
 
                     </div>
                     <div className="card-body">
-                        
-                            <Link to="/userprofile"  onClick={() => { getUserFromDb(note.user.id)}}
+
+                            <Link to="/viewshop" onClick={() => { getShopFromArr(note.shopId)}} 
                             >New notification!</Link>
                     
 

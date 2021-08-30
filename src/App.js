@@ -20,6 +20,7 @@ import UsersProfile from './Components/UserProfile/UserProfile';
 import BusinessHome from './Components/BusinessHome/businessHome';
 import Notifications from './Components/Notifications/notifications';
 import YourShop from './Components/YourShop/yourShop';
+import ViewShop from './Components/ViewShop/viewShop';
 
 
 
@@ -39,6 +40,8 @@ function App() {
   const [notifications, setNotifications] = useState([]);
   const [allShopHours, setAllShopHours] = useState([]);
   const [friends, setFriends] = useState([]);
+  const [shopToView, setShopToView] = useState([]);
+  const [specificShopHours, setSpecificShopHours] = useState([]);
 
 
   
@@ -101,7 +104,7 @@ function App() {
     setUsersFeed(response2.data)
   }
   const getUserFromDb = async (userId) => {
-     let response = await axios.get(`https://localhost:44394/api/examples/${userId}/`, {headers: {Authorization: 'Bearer ' + token}})
+     let response = await axios.get(`https://localhost:44394/api/examples/${userId}`, {headers: {Authorization: 'Bearer ' + token}})
      setUserFromDb(response.data)
   }
 
@@ -121,6 +124,24 @@ function App() {
     console.log(response.data);
     setTacosFromShop(response.data)
     console.log(tacosFromShop);
+  }
+  const getShopFromArr = (shopId) =>{
+    allShops.filter((shop) => {
+      if(shop.shopId == shopId)
+      setShopToView(shop)
+      getShopHours()
+      getTacosFromShopByShopId(shopId)
+      getShopHoursFromArr(shopId)
+    })
+    
+  }
+  const getShopHoursFromArr = (shopId) => {
+    allShopHours.filter((shopHours) => {
+      if(shopHours.shopId == shopId){
+        setSpecificShopHours(shopHours)
+        console.log(shopHours);
+      }
+    })
   }
 
   const getTacosFromShopByUserId = async () => {
@@ -207,7 +228,7 @@ function App() {
             <Route
               path="/yourshop"
               render={(props) => (
-              <YourShop {...props} userFromDb={userFromDb} allShopHours={allShopHours} getUserFromDb={getUserFromDb} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
+              <YourShop {...props} allShopHours={allShopHours}  currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
               )}
             />
           </Switch>
@@ -254,13 +275,19 @@ function App() {
             <Route
               path="/Notifications"
               render={(props) => (
-                <Notifications {...props} currentUser={currentUser} allShops={allShops} getUserFromDb={getUserFromDb} notifications={notifications} allShops={allShops} currentToken={token} />
+                <Notifications {...props} getShopFromArr={getShopFromArr} currentUser={currentUser} allShops={allShops} notifications={notifications} allShops={allShops} currentToken={token} />
               )}
             />
             <Route
               path="/UserProfile"
               render={(props) => (
-              <UsersProfile {...props} userFromDb={userFromDb} friends={friends} getUserFromDb={getUserFromDb} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
+              <UsersProfile {...props} userFromDb={userFromDb} friends={friends} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
+              )}
+            />
+            <Route
+              path="/viewshop"
+              render={(props) => (
+              <ViewShop {...props} userFromDb={userFromDb} allShopHours={allShopHours} friends={friends} tacosFromShop={tacosFromShop} shopToView={shopToView} specificShopHours={specificShopHours} friends={friends} getUserFromDb={getUserFromDb} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
               )}
             />
             

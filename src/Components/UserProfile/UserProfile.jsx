@@ -8,6 +8,8 @@ const UsersProfile = (props) => {
   const {currentUser, usersFeed, userFromDb, currentToken, friends } = props
   const [isOwnProfile, setIsOwnProfile] = useState(false);
   const [isFriendAlready, setIsFriendAlready] = useState(false);
+  const [tacoCounter, setTacoCounter] = useState(0);
+  const [specificUserPosts, setSpecificUserPosts] = useState([]);
 
   const checkIfFriends = () =>{
     console.log(friends);
@@ -17,13 +19,24 @@ const UsersProfile = (props) => {
         }
     })
   }
-  checkIfFriends()
 
-  const friendshipFields = {
-      userId: "",
-      friendId: "",
-      isPending: false,
-  }
+const filterUserFeed = () => {
+    let counter = 0;
+    let posts = usersFeed.filter((post) =>{
+        if (post.userId == userFromDb.id) {
+            counter++
+            return post
+        }
+    })
+setSpecificUserPosts(posts)
+setTacoCounter(counter)
+}
+
+const friendshipFields = {
+    userId: "",
+    friendId: "",
+    isPending: false,
+}
 console.log(userFromDb);
 
   useEffect(() =>{
@@ -33,8 +46,8 @@ console.log(userFromDb);
     else{
         checkIfFriends()
     }
-    
-  }, [userFromDb])
+    filterUserFeed()
+  }, [currentUser])
 
   const addFriend = async () => {
       friendshipFields.userId = currentUser.user.id
@@ -71,10 +84,9 @@ console.log(userFromDb);
             </div>
             <div className="card-body">
      
-                    <h5 className="card-title"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis sequi nisi, eligendi fuga modi perspiciatis ea eum dolores magnam quasi aliquid harum, autem explicabo delectus ipsa ducimus laboriosam odio unde.</h5>
-
+                <h5 className="card-title"> About {userFromDb.userName}:</h5>
                 <p className="card-text">
-                   
+                   Tacos checked in: {tacoCounter}
                 </p>
             </div>
             <div className="card-footer">
@@ -86,8 +98,7 @@ console.log(userFromDb);
                 }
             </div>
         </div>
-        {usersFeed.map((post) => {
-              if (post.userId == currentUser.user.id) {
+        {specificUserPosts && specificUserPosts.map((post) => {  
                 return (
                 <div className="container mt-4 "> 
                   <div className="card gedf-card posts mt-5 mb-3" >
@@ -124,8 +135,6 @@ console.log(userFromDb);
                   </div>
                   </div>
                 )
-              }
-              
             })}
         </div>
         <div className="col col-3 right"></div>
@@ -153,17 +162,16 @@ console.log(userFromDb);
             </div>
             <div className="card-body">
      
-                    <h5 className="card-title"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis sequi nisi, eligendi fuga modi perspiciatis ea eum dolores magnam quasi aliquid harum, autem explicabo delectus ipsa ducimus laboriosam odio unde.</h5>
-
+            <h5 className="card-title"> About you:</h5>
                 <p className="card-text">
-                   
+                   Tacos checked in: {tacoCounter}
                 </p>
             </div>
             <div className="card-footer">
             </div>
         </div>
-        {usersFeed.map((post) => {
-              if (post.userId == currentUser.user.id) {
+        {specificUserPosts && specificUserPosts.map((post) => {
+              
                 return (
                 <div className="container mt-4 "> 
                   <div className="card gedf-card posts mt-5 mb-3" >
@@ -185,7 +193,7 @@ console.log(userFromDb);
                       <div className="card-body">
                           <div className="text-muted h7 mb-2"> <i className="fa fa-clock-o"></i>10 min ago</div>
                           <a className="card-link" href="#">
-                              <h5 className="card-title">{post.user.userName} checked in the {post.taco.name}!</h5>
+                              <h5 className="card-title">You checked in the {post.taco.name}!</h5>
                           </a>
   
                           <p className="card-text">
@@ -200,7 +208,7 @@ console.log(userFromDb);
                   </div>
                   </div>
                 )
-              }
+              
               
             })}
         </div>

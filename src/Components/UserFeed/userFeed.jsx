@@ -37,7 +37,7 @@ const UserFeed = (props) => {
                     <div className="card-body">
                         <div className="text-muted h7 mb-2"> <i className="fa fa-clock-o"></i>10 min ago</div>
                         
-                            <Link to="/userprofile"  onClick={() => { getUserFromDb(post.user.id)}}
+                            <Link to="/userprofile"  onClick={() =>  getUserFromDb(post.user.id)}
                             >{post.user.userName} checked in the {post.taco.name}!</Link>
                     
 

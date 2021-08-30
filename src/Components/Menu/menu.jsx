@@ -28,29 +28,29 @@ const Menu = (props) => {
                     
                     tacosFromShop.map((taco) => {
                         
-                         return(
-                            <div className="card gedf-card my-3">
-                    <div className="card-header">
-                        <div className="d-flex justify-content-between align-items-center">
+                        return(
+                    <div className="card gedf-card my-3">
+                        <div className="card-header">
                             <div className="d-flex justify-content-between align-items-center">
+                                <div className="d-flex justify-content-between align-items-center">
                                 
-                                <div className="ml-2">
-                                    <div className="h5 m-0">{taco.name} <span className="tacoPrice" >${taco.price}</span></div>
+                                    <div className="ml-2">
+                                        <div className="h5 m-0">{taco.name} <span className="tacoPrice" >${taco.price}</span></div>
+                                     </div>
                                 </div>
+                            
                             </div>
+
+                        </div>
+                        <div className="card-body">
+                            <p>{taco.averageRating}/5  {taco.numberOfRatings} reviews</p>
+                            <p className="card-text">
+                                {taco.description}
+                            </p>
                             
                         </div>
-
-                    </div>
-                    <div className="card-body">
-                        <p>{taco.averageRating}/5  {taco.numberOfRatings} reviews</p>
-                        <p className="card-text">
-                            {taco.description}
-                        </p>
-                        
-                    </div>
                     
-                </div>
+                    </div>
                          )
                     })}
                 </div>

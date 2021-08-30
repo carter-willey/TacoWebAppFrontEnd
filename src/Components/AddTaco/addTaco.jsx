@@ -18,6 +18,7 @@ const AddTaco = (props) => {
         description: "",
         averageRating: 5,
         numberOfRatings: 1,
+        totalRatingNumber: 5,
     }
     const [eachEntry, setEachEntry] = useState(initialTacoInfo)
 

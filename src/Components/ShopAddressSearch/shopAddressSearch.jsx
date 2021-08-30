@@ -26,7 +26,10 @@ const ShopAddressSearch = (props) => {
 
 
   useEffect(()=> {
-    setValue(thisShop.address)
+    if(thisShop){
+      setValue(thisShop.address)
+    }
+    
   },[thisShop])
   
   const ref = useOnclickOutside(() => {
