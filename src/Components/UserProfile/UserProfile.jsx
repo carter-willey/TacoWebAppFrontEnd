@@ -5,15 +5,43 @@ import axios from 'axios';
 
 
 const UsersProfile = (props) => {
-  const {currentUser, usersFeed, userFromDb } = props
+  const {currentUser, usersFeed, userFromDb, currentToken, friends } = props
   const [isOwnProfile, setIsOwnProfile] = useState(false);
+  const [isFriendAlready, setIsFriendAlready] = useState(false);
 
+  const checkIfFriends = () =>{
+    console.log(friends);
+    friends.filter((friendship) =>{
+        if(friendship.userId == userFromDb.id || friendship.friendId == userFromDb.id){
+            setIsFriendAlready(true)
+        }
+    })
+  }
+  checkIfFriends()
+
+  const friendshipFields = {
+      userId: "",
+      friendId: "",
+      isPending: false,
+  }
+console.log(userFromDb);
 
   useEffect(() =>{
     if (currentUser.user.id == userFromDb.id){
         setIsOwnProfile(true)
     }
+    else{
+        checkIfFriends()
+    }
+    
   }, [userFromDb])
+
+  const addFriend = async () => {
+      friendshipFields.userId = currentUser.user.id
+      friendshipFields.friendId = userFromDb.id
+    let response = await axios.post(`https://localhost:44394/api/friendship/`, friendshipFields, {headers: {Authorization: 'Bearer ' + currentToken}})
+
+  }
   
   //get request for users info, render page with user object received
   // const [specificUserFeed, setSpecificUserFeed] = useState([]);
@@ -50,7 +78,12 @@ const UsersProfile = (props) => {
                 </p>
             </div>
             <div className="card-footer">
-                <button className="btn btn-primary">Add Friend</button>
+                {!isFriendAlready &&
+                <button className="btn btn-primary" onClick={() => addFriend(), setIsFriendAlready(true)}>Add Friend</button>
+                }
+                {isFriendAlready &&
+                <h5>You are friends with{userFromDb.userName}</h5>
+                }
             </div>
         </div>
         {usersFeed.map((post) => {

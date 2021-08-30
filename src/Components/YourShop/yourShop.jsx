@@ -132,10 +132,7 @@ const YourShop = (props) => {
                 
                 await axios.post("https://localhost:44394/api/notifications/", notificationFields, {headers: {Authorization: 'Bearer ' + currentToken}})
              }
-              }
-            
-            
-              
+              }              
                 history.push("/")
             }
         

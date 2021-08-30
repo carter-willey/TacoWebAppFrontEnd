@@ -38,6 +38,7 @@ function App() {
   const [userClickedOn, setUserClickedOn] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const [allShopHours, setAllShopHours] = useState([]);
+  const [friends, setFriends] = useState([]);
 
 
   
@@ -68,7 +69,8 @@ function App() {
     else{
       getUserFeed()
       getAllShops()
-      getShopHours()
+      //getShopHours() user later in viewshop
+      getFriends()
     }
   }, [loading])
 
@@ -85,6 +87,13 @@ function App() {
     let response = await axios.get(`https://localhost:44394/api/shophours/`, {headers: {Authorization: 'Bearer ' + token}})
     console.log(response.data);
     setAllShopHours(response.data)
+  }
+
+  
+  const getFriends = async () => {
+    let response = await axios.get(`https://localhost:44394/api/friendship/`, {headers: {Authorization: 'Bearer ' + token}})
+    setFriends(response.data)
+    console.log(response.data);
   }
 
   const getUserFeed = async () => {
@@ -251,7 +260,7 @@ function App() {
             <Route
               path="/UserProfile"
               render={(props) => (
-              <UsersProfile {...props} userFromDb={userFromDb}  getUserFromDb={getUserFromDb} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
+              <UsersProfile {...props} userFromDb={userFromDb} friends={friends} getUserFromDb={getUserFromDb} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
               )}
             />
             
