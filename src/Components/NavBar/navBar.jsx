@@ -30,7 +30,7 @@ const NavBar = (props) => {
             <Link className="nav-link" to="/Menu" as={Link}>Menu</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" as={Link} to="/userprofile">Your Shop</Link>
+            <Link className="nav-link" as={Link} to="/yourshop">Your Shop</Link>
           </li>
           <li>
           <Link className="nav-link" href="/login" as={Link} onClick={logout} >Logout</Link>

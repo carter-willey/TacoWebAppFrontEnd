@@ -3,10 +3,10 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const ShopAddressSearch = (props) => {
-  const {setAddress, setLng, setLat} = props;
+  const {setAddress, setLng, setLat, thisShop} = props;
   const {
     ready,
     value,
@@ -23,6 +23,12 @@ const ShopAddressSearch = (props) => {
     },
     debounce: 300,
   });
+
+
+  useEffect(()=> {
+    setValue(thisShop.address)
+  },[thisShop])
+  
   const ref = useOnclickOutside(() => {
     // When user clicks outside of the component, we can dismiss
     // the searched suggestions by calling this method
@@ -48,12 +54,10 @@ const ShopAddressSearch = (props) => {
       getGeocode({ address: description })
         .then((results) => getLatLng(results[0]))
         .then(({ lat, lng }) => {
-          console.log("📍 Coordinates: ", { lat, lng });
           setLat(lat)
           setLng(lng)
         })
         .catch((error) => {
-          console.log("😱 Error: ", error);
         });
     };
 
@@ -77,7 +81,7 @@ const ShopAddressSearch = (props) => {
         value={value}
         onChange={handleInput}
         disabled={!ready}
-        placeholder="Where are you going?"
+
       />
       {/* We can use the "status" to decide whether we should display the dropdown or not */}
       {status === "OK" && <ul>{renderSuggestions()}</ul>}

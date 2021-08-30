@@ -11,7 +11,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import axios from 'axios';
@@ -20,6 +19,7 @@ import AddTaco from './Components/AddTaco/addTaco';
 import UsersProfile from './Components/UserProfile/UserProfile';
 import BusinessHome from './Components/BusinessHome/businessHome';
 import Notifications from './Components/Notifications/notifications';
+import YourShop from './Components/YourShop/yourShop';
 
 
 
@@ -37,6 +37,7 @@ function App() {
   const [ownerStatus, setOwnerStatus] = useState();
   const [userClickedOn, setUserClickedOn] = useState(null);
   const [notifications, setNotifications] = useState([]);
+  const [allShopHours, setAllShopHours] = useState([]);
 
 
   
@@ -61,11 +62,13 @@ function App() {
 
   useEffect( () => {
     if(ownerStatus == true){
+      getShopHours()
 
     }
     else{
       getUserFeed()
       getAllShops()
+      getShopHours()
     }
   }, [loading])
 
@@ -78,7 +81,11 @@ function App() {
     
   }, [currentUser])
 
-  
+  const getShopHours = async () => {
+    let response = await axios.get(`https://localhost:44394/api/shophours/`, {headers: {Authorization: 'Bearer ' + token}})
+    console.log(response.data);
+    setAllShopHours(response.data)
+  }
 
   const getUserFeed = async () => {
     let response2 = await axios.get("https://localhost:44394/api/posts/", {headers: {Authorization: 'Bearer ' + token}})
@@ -188,6 +195,12 @@ function App() {
               <Menu getTacosFromShopByUserId={getTacosFromShopByUserId} setTacosFromShop={setTacosFromShop} currentToken={token} allShops={allShops} tacosFromShop={tacosFromShop} currentUser={currentUser} />
             )}
             />
+            <Route
+              path="/yourshop"
+              render={(props) => (
+              <YourShop {...props} userFromDb={userFromDb} allShopHours={allShopHours} getUserFromDb={getUserFromDb} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
+              )}
+            />
           </Switch>
       </div>
       
@@ -241,6 +254,7 @@ function App() {
               <UsersProfile {...props} userFromDb={userFromDb}  getUserFromDb={getUserFromDb} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
               )}
             />
+            
           </Switch>
       </div>
       
