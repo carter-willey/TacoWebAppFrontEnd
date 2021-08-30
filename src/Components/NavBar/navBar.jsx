@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 const NavBar = (props) => {
-  const {currentUser, logout, ownerStatus, getUserFromDb, setIsOwnProfile } = props
+  const {currentUser, logout, ownerStatus, getUserFromDb, getNotifications, setIsOwnProfile } = props
   return ( 
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
      {/* if current use is not business owner */}
@@ -60,7 +60,7 @@ const NavBar = (props) => {
             <Link className="nav-link" as={Link} to="/Map" >Map</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link"  to="/">Notifications</Link>
+            <Link className="nav-link" onClick={() => getNotifications()}  to="/Notifications">Notifications</Link>
           </li>
           <li className="nav-item">
           <Link className="nav-link" onClick={() => getUserFromDb(currentUser.user.id)} to="/userprofile" >Profile</Link>

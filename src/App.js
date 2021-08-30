@@ -19,6 +19,7 @@ import {LoadScript} from '@react-google-maps/api';
 import AddTaco from './Components/AddTaco/addTaco';
 import UsersProfile from './Components/UserProfile/UserProfile';
 import BusinessHome from './Components/BusinessHome/businessHome';
+import Notifications from './Components/Notifications/notifications';
 
 
 
@@ -35,6 +36,7 @@ function App() {
   const [userFromDb, setUserFromDb] = useState([]);
   const [ownerStatus, setOwnerStatus] = useState();
   const [userClickedOn, setUserClickedOn] = useState(null);
+  const [notifications, setNotifications] = useState([]);
 
 
   
@@ -118,6 +120,12 @@ function App() {
     window.location = "/";
   }
 
+  const getNotifications = async () => {
+    let response = await axios.get(`https://localhost:44394/api/notifications/`, {headers: {Authorization: 'Bearer ' + token}})
+    console.log(response.data);
+    setNotifications(response.data)
+  }
+
   const checkOwnerStatus = () => {
 
     let valueArr = Object.values(currentUser.user)
@@ -189,7 +197,7 @@ function App() {
        
       <div>
         user
-          <NavBar logout={logout} getUserFromDb={getUserFromDb} currentUser={currentUser}  />
+          <NavBar logout={logout} getUserFromDb={getUserFromDb} getNotifications={getNotifications} currentUser={currentUser}  />
           <Switch>
             <Route path="/"
             exact
@@ -219,6 +227,12 @@ function App() {
               path="/AddTaco"
               render={(props) => (
                 <AddTaco {...props} currentUser={currentUser} allShops={allShops} currentToken={token} />
+              )}
+            />
+            <Route
+              path="/Notifications"
+              render={(props) => (
+                <Notifications {...props} currentUser={currentUser} allShops={allShops} getUserFromDb={getUserFromDb} notifications={notifications} allShops={allShops} currentToken={token} />
               )}
             />
             <Route

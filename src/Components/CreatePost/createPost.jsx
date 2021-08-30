@@ -8,7 +8,7 @@ const CreatePost = (props) => {
   const [isStoreSelected, setIsStoreSelected] = useState(false);
   const [tacoToPostId, setTacoToPostId] = useState(0);
   const [tacoDescription, setTacoDescription] = useState("");
-  const {allShops, currentUser, currentToken, getTacosFromShop, tacosFromShop} = props
+  const {allShops, currentUser, currentToken, getTacosFromShopByShopId, tacosFromShop} = props
 
   const postFields = {
     UserId: currentUser.user.id,
@@ -41,7 +41,7 @@ const CreatePost = (props) => {
   const handleShopSelected = async (shopId, shopName) => {
     setSearchTerm(shopName);
     setFilteredShops([]);
-    await getTacosFromShop(shopId);
+    await getTacosFromShopByShopId(shopId);
     setIsStoreSelected(true);
   }
 
