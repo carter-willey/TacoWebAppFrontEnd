@@ -129,7 +129,7 @@ const SignUpForm = () => {
                       <input type="checkbox" onChange={handleCheckbox} class="form-check-input" id="exampleCheck1"/>
                       <label class="form-check-label" for="exampleCheck1">Are you a taco shop owner?</label>
                     </div>
-                    <button className="mt-2 mb-1" type="submit">Sign Up</button>
+                    <button className="btn btn-primary mt-2 ms-2" type="submit">Sign Up</button>
                     </form>
                     </div>
                 </div>

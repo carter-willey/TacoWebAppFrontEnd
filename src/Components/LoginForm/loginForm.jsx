@@ -54,9 +54,9 @@ const logIn = async () => {
                       <h5 className="signupTitle">Password:</h5>
                     <input className="form-control" type="password" name="password" placeholder="Please enter your password..." onChange={handleChange}></input>
                     
-                    <button type="submit" class="btn btn-light mt-2 ms-2 mx-5" >Login</button>
+                    <button type="submit" class="btn btn-primary mt-2 ms-2 mx-5" >Login</button>
                     <Link to="/Signup">
-                    <button type="submit" class="btn btn-light mt-2 ms-2">Signup</button>
+                    <button type="submit" class="btn btn-primary mt-2 ms-2">Signup</button>
                     
                     </Link>
                     </div>

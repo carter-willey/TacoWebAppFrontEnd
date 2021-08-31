@@ -221,7 +221,7 @@ const RegisterShop = (props) => {
                       </div>
                     </div>
 
-                    <button className="mt-2 mb-1 register" type="submit">Register Shop</button>
+                    <button className="mt-2 mb-1 btn btn-primary register" type="submit">Register Shop</button>
                     </form>
                     </div>
                 </div>

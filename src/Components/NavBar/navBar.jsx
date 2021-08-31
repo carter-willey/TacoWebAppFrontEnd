@@ -50,7 +50,7 @@ const NavBar = (props) => {
      {/* if current use is not business owner */}
     {currentUser && ownerStatus &&
     <>
-      <a className="navbar-brand" ><img src={navlogo}></img>{currentUser.user.username}!</a>
+      <a className="navbar-brand" ><img src={navlogo} height="50px"></img>{currentUser.user.username}!</a>
       
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
@@ -75,7 +75,7 @@ const NavBar = (props) => {
       </div>
     </>
     }
-    {allUsers && !ownerStatus &&
+    {currentUser && !ownerStatus &&
     <>
       <a href="#" class="navbar-left"><img src={navlogo} height="50px" /></a>
       
@@ -101,7 +101,7 @@ const NavBar = (props) => {
           <Link className="nav-link" to="/login" as={Link} onClick={logout} >Logout</Link>
           </li>
         </ul>
-        
+          {allUsers &&
           <div style={{ width: 400 }}>
             <ReactSearchAutocomplete
                 items={items}
@@ -115,6 +115,7 @@ const NavBar = (props) => {
                 resultStringKeyName={"userName"}
               />
             </div>
+          }
           
     </div>
     </>
