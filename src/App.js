@@ -44,6 +44,7 @@ function App() {
   const [specificShopHours, setSpecificShopHours] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [wasTacoPosted, setWasTacoPosted] = useState(false);
+  const [shopCreated, setShopCreated] = useState();
 
 
   
@@ -78,6 +79,10 @@ function App() {
       getFriends()
     }
   }, [loading])
+
+  useEffect(()=>{
+    getAllShops()
+  },[shopCreated])
 
 useEffect(()=>{
   getUserFeed()
@@ -204,6 +209,7 @@ useEffect(()=>{
             <Route path="/RegisterShop" render={(props) => <RegisterShop {...props} 
               currentUser={currentUser}
               currentToken={token}
+              setShopCreated={setShopCreated}
             />} />
             <Route
               path="/Login"

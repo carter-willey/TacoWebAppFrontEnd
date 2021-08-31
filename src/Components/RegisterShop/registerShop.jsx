@@ -10,7 +10,7 @@ import registerShop from "./registerShop.css"
 
 
 const RegisterShop = (props) => {
-  const {currentToken, currentUser} = props;
+  const {currentToken, currentUser, setShopCreated} = props;
 
     const history = useHistory()
     const [eachTimeEntry, setEachTimeEntry] = useState()
@@ -77,7 +77,8 @@ const RegisterShop = (props) => {
             if (response.data.length !== 0){
               shopHours.shopId = response.data.shopId;
               let response2 = await axios.post("https://localhost:44394/api/shophours/", shopHours, { headers: {Authorization: 'Bearer ' + currentToken}});
-                history.push("/")
+              setShopCreated(response.data)
+              history.push("/")
             }
         }
     }
