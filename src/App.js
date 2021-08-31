@@ -42,6 +42,7 @@ function App() {
   const [friends, setFriends] = useState([]);
   const [shopToView, setShopToView] = useState([]);
   const [specificShopHours, setSpecificShopHours] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
 
 
   
@@ -72,10 +73,12 @@ function App() {
     else{
       getUserFeed()
       getAllShops()
-      //getShopHours() user later in viewshop
+      getAllUsers()
       getFriends()
     }
   }, [loading])
+
+
 
   useEffect(() => {
     if(currentUser){
@@ -116,7 +119,11 @@ function App() {
   const getAllShops = async () => {
     let response = await axios.get("https://localhost:44394/api/shops/")
     setAllShops(response.data)
+  }
 
+  const getAllUsers = async () => {
+    let response = await axios.get("https://localhost:44394/api/examples/")
+    setAllUsers(response.data)
   }
 
   const getTacosFromShopByShopId = async (shopId) => {
@@ -164,17 +171,13 @@ function App() {
   }
 
   const checkOwnerStatus = () => {
-
     let valueArr = Object.values(currentUser.user)
     if(valueArr.includes("Admin")){
       setOwnerStatus(true)
-      console.log("owner");
     }
     else if (valueArr.includes("User")){
       setOwnerStatus(false)
-      console.log("user");
     }
-    
   }
   return (
     <Router>
@@ -238,11 +241,11 @@ function App() {
     {!loading && !ownerStatus &&
        
       <div>
-          <NavBar logout={logout} getUserFromDb={getUserFromDb} getNotifications={getNotifications} currentUser={currentUser}  />
+          <NavBar logout={logout} allUsers={allUsers} setUserClickedOn={setUserClickedOn} getAllUsers={getAllUsers} getNotifications={getNotifications} currentUser={currentUser}  />
           <Switch>
             <Route path="/"
             exact
-            render={(props) => (<Home {...props} setUserClickedOn={setUserClickedOn} currentUser={currentUser}
+            render={(props) => (<Home {...props} currentUser={currentUser}
               currentToken={token} usersFeed={usersFeed} allShops={allShops} getUserFromDb={getUserFromDb}
               getTacosFromShopByShopId={getTacosFromShopByShopId}
               tacosFromShop={tacosFromShop} />
@@ -279,7 +282,7 @@ function App() {
             <Route
               path="/UserProfile"
               render={(props) => (
-              <UsersProfile {...props} userFromDb={userFromDb} friends={friends} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
+              <UsersProfile {...props} userClickedOn={userClickedOn} friends={friends} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
               )}
             />
             <Route

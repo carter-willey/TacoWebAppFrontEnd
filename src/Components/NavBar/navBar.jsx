@@ -1,5 +1,6 @@
 import React from 'react';
 import navlogo from '../NavBar/navlogo.png'
+import { useHistory} from 'react-router-dom';
 import navBar from './navBar.css'
 import {
   BrowserRouter as Router,
@@ -8,9 +9,42 @@ import {
   Link,
   Prompt
 } from "react-router-dom";
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+
 
 const NavBar = (props) => {
-  const {currentUser, logout, ownerStatus, getUserFromDb, getNotifications, setIsOwnProfile, getShopHours } = props
+  const {currentUser, logout, ownerStatus,  getNotifications,  setUserClickedOn, getShopHours, allUsers } = props
+  const items = allUsers;
+  const history = useHistory()
+
+  const handleOnSearch = (string, results) => {
+    // onSearch will have as the first callback parameter
+    // the string searched and for the second the results.
+    console.log(string, results)
+  }
+
+  const handleOnHover = (result) => {
+    // the item hovered
+    console.log(result)
+  }
+
+  const handleOnSelect = (item) => {
+    setUserClickedOn(item)
+    history.push("/userprofile")
+    console.log(item)
+  }
+
+  const handleOnFocus = () => {
+    console.log('Focused')
+    console.log(allUsers);
+  }
+
+  const formatResult = (item) => {
+    return item;
+   // return (<p dangerouslySetInnerHTML={{__html: '<strong>'+item+'</strong>'}}></p>); //To format result as html
+  }
+
+
   return ( 
     <nav className="navbar navbar-expand-lg navbar-light bg" style={{backgroundColor: "#f5bd3b"}} >
      {/* if current use is not business owner */}
@@ -38,14 +72,10 @@ const NavBar = (props) => {
           <Link className="nav-link" href="/login" as={Link} onClick={logout} >Logout</Link>
           </li>
         </ul>
-        <form className="searchBar form-inline my-2 my-lg-0">
-          <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
     </>
     }
-    {currentUser && !ownerStatus &&
+    {allUsers && !ownerStatus &&
     <>
       <a href="#" class="navbar-left"><img src={navlogo} height="50px" /></a>
       
@@ -65,17 +95,28 @@ const NavBar = (props) => {
             <Link className="nav-link" onClick={() => getNotifications()}  to="/Notifications">Notifications</Link>
           </li>
           <li className="nav-item">
-          <Link className="nav-link" onClick={() => getUserFromDb(currentUser.user.id)} to="/userprofile" >Profile</Link>
+          <Link className="nav-link" onClick={() => setUserClickedOn(currentUser.user.id)} to="/userprofile" >Profile</Link>
           </li>
           <li>
           <Link className="nav-link" to="/login" as={Link} onClick={logout} >Logout</Link>
           </li>
         </ul>
-        <form className="searchBar form-inline my-2 my-lg-0">
-          <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
+        
+          <div style={{ width: 400 }}>
+            <ReactSearchAutocomplete
+                items={items}
+                fuseOptions={{keys: ["userName"]}}
+                onSearch={handleOnSearch}
+                onHover={handleOnHover}
+                onSelect={handleOnSelect}
+                onFocus={handleOnFocus}
+                autoFocus
+                formatResult={formatResult}
+                resultStringKeyName={"userName"}
+              />
+            </div>
+          
+    </div>
     </>
     }
     

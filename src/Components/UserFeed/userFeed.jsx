@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
+import Avatar from '@material-ui/core/Avatar';
 
 
 const UserFeed = (props) => {
@@ -32,7 +33,7 @@ const UserFeed = (props) => {
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="mr-2">
-                                    <img className="rounded-circle" width="45" src="https://www.ncenet.com/wp-content/uploads/2020/04/No-image-found.jpg" alt="" />
+                                    <Avatar>{post.user.userName[0]}</Avatar>
                                 </div>
                                 <div className="ml-2">
                                     <div className="h5 m-0">{post.user.userName}</div>
