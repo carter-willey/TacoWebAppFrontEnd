@@ -75,7 +75,7 @@ console.log(userFromDb);
   return ( 
     <div className="container-fluid main h-100">
         {console.log(userFromDb)}
-        {!isOwnProfile && userFromDb &&
+        {!isOwnProfile && userFromDb && 
       <div className="row mainRow h-100" >
         <div className="col col-3 left"></div>
         <div className="col middle "> 
@@ -105,10 +105,10 @@ console.log(userFromDb);
                 </p>
             </div>
             <div className="card-footer">
-                {!isFriendAlready &&
-                <button className="btn btn-primary" onClick={() => addFriend(), setIsFriendAlready(true)}>Add Friend</button>
-                }
                 {isFriendAlready &&
+                <button className="btn btn-primary" onClick={() => {addFriend(); setIsFriendAlready(false)}}>Add Friend</button>
+                }
+                {!isFriendAlready &&
                 <h5>You are friends with {userFromDb.userName}</h5>
                 }
             </div>
