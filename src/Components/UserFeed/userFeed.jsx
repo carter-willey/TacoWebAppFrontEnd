@@ -14,10 +14,10 @@ const UserFeed = (props) => {
       <div className="row mainRow h-100">
         <div className="col"></div>
         <div className="col">
-          {currentUser.user.username}'s Feed
+          <h3>Your Feed:</h3>
 
           
-            {usersFeed.map((post) => {
+            {usersFeed.slice(0).reverse().map((post) => {
               var image = new Image()
               console.log(post);
               if(post.image === null || post.image === ""){

@@ -11,6 +11,7 @@ const UsersProfile = (props) => {
   const [isFriendAlready, setIsFriendAlready] = useState();
   const [tacoCounter, setTacoCounter] = useState(0);
   const [specificUserPosts, setSpecificUserPosts] = useState([]);
+  const [imgSrc, setImgSrc] = useState("https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png");
 
   const checkIfFriends = () =>{
     
@@ -113,7 +114,15 @@ console.log(userFromDb);
                 }
             </div>
         </div>
-        {specificUserPosts && specificUserPosts.map((post) => {  
+        {specificUserPosts && specificUserPosts.slice(0).reverse().map((post) => {  
+            var image = new Image()
+            console.log(post);
+            if(post.image === null || post.image === ""){
+              image.src = imgSrc
+            }
+            else{
+              image.src = post.image; 
+            }
                 return (
                 <div className="container mt-4 "> 
                   <div className="card gedf-card posts mt-5 mb-3" style={{width: "50rem"}} >
@@ -133,14 +142,18 @@ console.log(userFromDb);
   
                       </div>
                       <div className="card-body">
-                          
-                          <a className="card-link" href="#">
-                              <h5 className="card-title">{post.user.userName} checked in the {post.taco.name}!</h5>
-                          </a>
+                        <div className="row">
+                            <div className="col"><img src={image.src} height="300em" alt="" /></div>
+                            <div className="col">
+                                <a className="card-link" href="#">
+                                  <h5 className="card-title">{post.user.userName} checked in the {post.taco.name}!</h5>
+                                </a>
   
-                          <p className="card-text">
-                              {post.description}
-                          </p>
+                                <p className="card-text">
+                                    {post.description}
+                                </p>
+                            </div>
+                        </div>
                       </div>
                       <div className="card-footer">
                           <a href="#" className="card-link"><i className="fa fa-gittip"></i> Like</a>
@@ -181,17 +194,27 @@ console.log(userFromDb);
      
             <h5 className="card-title"> About you:</h5>
                 <p className="card-text">
-                   Tacos checked in: {tacoCounter}
+                    <p>{userFromDb.firstName}</p>
+                    <p>{userFromDb.email}</p>
+                   <b>Tacos checked in: {tacoCounter}</b>
                 </p>
             </div>
             <div className="card-footer">
             </div>
         </div>
         {specificUserPosts && specificUserPosts.map((post) => {
+            var image = new Image()
+            console.log(post);
+            if(post.image === null || post.image === ""){
+              image.src = imgSrc
+            }
+            else{
+              image.src = post.image; 
+            }
               
                 return (
                 <div className="container mt-4 d-flex justify-content-center "> 
-                  <div className="card gedf-card posts mt-5 mb-3 posts">
+                  <div className="card gedf-card posts mt-5 mb-3 posts" style={{width: "50rem"}}>
                       <div className="card-header">
                           <div className="d-flex justify-content-between align-items-center">
                               <div className="d-flex justify-content-between align-items-center">
@@ -208,14 +231,19 @@ console.log(userFromDb);
   
                       </div>
                       <div className="card-body">
+                        <div className="row">
+                            <div className="col"><img src={image.src} height="300em" alt="" /></div>
+                            <div className="col">
                           
-                          <a className="card-link" href="#">
-                              <h5 className="card-title">You checked in the {post.taco.name}!</h5>
-                          </a>
+                                <a className="card-link" href="#">
+                                    <h5 className="card-title">You checked in the {post.taco.name}!</h5>
+                                </a>
   
-                          <p className="card-text">
-                              {post.description}
-                          </p>
+                                <p className="card-text">
+                                    {post.description}
+                                </p>
+                            </div>
+                        </div>
                       </div>
                       <div className="card-footer">
                           <a href="#" className="card-link"><i className="fa fa-gittip"></i> Like</a>
