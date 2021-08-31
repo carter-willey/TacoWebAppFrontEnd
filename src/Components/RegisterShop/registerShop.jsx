@@ -83,18 +83,18 @@ const RegisterShop = (props) => {
         }
     }
     return (
-        <div className="container-fluid "> 
+        <div className="container-fluid mt-5 "> 
             <div className="row ">
                 <div className="col sm-4 side"></div>
-                <div className="col sm-4">
-                <div  >
+                <div className="col sm-4 d-flex justify-content-center">
+                <div className="">
                     <h1 className="title">{currentUser.user.username}, Register your shop!</h1>
                     <form onSubmit={handleSubmit}>
                         <div>
                             <h5 className="signupTitle">Shop Name:</h5>
-                    <input  className="form-control " value={eachEntry.name} name="name" placeholder="Shop name..." onChange={handleChange}></input>
+                        <input  className="form-control " value={eachEntry.name} name="name" placeholder="Shop name..." onChange={handleChange}></input>
                     
-                    </div>
+                       </div>
 
                     
                     <h5 className="signupTitle">Shop Address:</h5>
