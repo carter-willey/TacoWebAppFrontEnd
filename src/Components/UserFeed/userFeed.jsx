@@ -19,6 +19,7 @@ const UserFeed = (props) => {
           
             {usersFeed.map((post) => {
               var image = new Image()
+              console.log(post);
               if(post.image === null || post.image === ""){
                 image.src = imgSrc
               }

@@ -14,7 +14,7 @@ const CreatePost = (props) => {
   const [isStoreSelected, setIsStoreSelected] = useState(false);
   const [tacoToPostId, setTacoToPostId] = useState(0);
   const [tacoDescription, setTacoDescription] = useState(initFields.description);
-  const {allShops, currentUser, currentToken, getTacosFromShopByShopId, tacosFromShop} = props
+  const {allShops, currentUser, currentToken, getTacosFromShopByShopId, tacosFromShop, setWasTacoPosted} = props
   const [imgSrc, setImgSrc] = useState("https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png");
 
   const postFields = {
@@ -56,6 +56,7 @@ const CreatePost = (props) => {
     let file = event.target.files[0]
     let response = await toBase64(file);
     var img = new Image()
+    postFields.image = response
     img.src = postFields.image
     setImgSrc(img.src)
 }
@@ -70,6 +71,7 @@ const CreatePost = (props) => {
     setSearchTerm(initFields.searchTerm)
     setRating(initFields.rating)
     setTacoDescription(initFields.description)
+    setWasTacoPosted(true)
     console.log("posted!");
   }
 

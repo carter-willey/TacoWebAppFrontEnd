@@ -6,8 +6,8 @@ import Avatar from '@material-ui/core/Avatar';
 
 
 const UsersProfile = (props) => {
-  const {currentUser, usersFeed, userClickedOn, currentToken, friends } = props
-  const [isOwnProfile, setIsOwnProfile] = useState(false);
+  const {currentUser, usersFeed, userFromDb, currentToken, friends } = props
+  const [isOwnProfile, setIsOwnProfile] = useState(true);
   const [isFriendAlready, setIsFriendAlready] = useState(false);
   const [tacoCounter, setTacoCounter] = useState(0);
   const [specificUserPosts, setSpecificUserPosts] = useState([]);
@@ -15,7 +15,7 @@ const UsersProfile = (props) => {
   const checkIfFriends = () =>{
     console.log(friends);
     friends.filter((friendship) =>{
-        if(friendship.userId == userClickedOn.id || friendship.friendId == userClickedOn.id){
+        if(friendship.userId == userFromDb.id || friendship.friendId == userFromDb.id){
             setIsFriendAlready(true)
         }
     })
@@ -24,7 +24,7 @@ const UsersProfile = (props) => {
 const filterUserFeed = () => {
     let counter = 0;
     let posts = usersFeed.filter((post) =>{
-        if (post.userId == userClickedOn.id) {
+        if (post.userId == userFromDb.id) {
             counter++
             return post
         }
@@ -38,10 +38,10 @@ const friendshipFields = {
     friendId: "",
     isPending: false,
 }
-console.log(userClickedOn);
+console.log(userFromDb);
 
   useEffect(() =>{
-    if (currentUser.user.id == userClickedOn.id){
+    if (currentUser.user.id == userFromDb.id){
         setIsOwnProfile(true)
     }
     else{
@@ -52,7 +52,7 @@ console.log(userClickedOn);
 
   const addFriend = async () => {
       friendshipFields.userId = currentUser.user.id
-      friendshipFields.friendId = userClickedOn.id
+      friendshipFields.friendId = userFromDb.id
     let response = await axios.post(`https://localhost:44394/api/friendship/`, friendshipFields, {headers: {Authorization: 'Bearer ' + currentToken}})
 
   }
@@ -63,7 +63,7 @@ console.log(userClickedOn);
 
   return ( 
     <div className="container-fluid main h-100">
-        {console.log(userClickedOn)}
+        {console.log(userFromDb)}
         {!isOwnProfile &&
       <div className="row mainRow h-100" >
         <div className="col col-3 left"></div>
@@ -73,12 +73,12 @@ console.log(userClickedOn);
                 <div className="d-flex justify-content-center align-items-center">
                     <div className="d-flex justify-content-center align-items-center">
                         <div className="m-2">
-                            {userClickedOn.userName &&
-                            <Avatar>{userClickedOn.userName[0]}</Avatar>
+                            {userFromDb.userName &&
+                            <Avatar>{userFromDb.userName[0]}</Avatar>
                             }
                         </div>
                         <div className="ml-2">
-                            <div className="h5 m-0">{userClickedOn.userName}</div>
+                            <div className="h5 m-0">{userFromDb.userName}</div>
                             <div className="h7 text-muted"></div>
                         </div>
                     </div>
@@ -88,24 +88,24 @@ console.log(userClickedOn);
             </div>
             <div className="card-body">
      
-                <h5 className="card-title"> About {userClickedOn.userName}:</h5>
+                <h5 className="card-title"> About {userFromDb.userName}:</h5>
                 <p className="card-text">
                    Tacos checked in: {tacoCounter}
                 </p>
             </div>
             <div className="card-footer">
-                {!isFriendAlready &&
+                {isFriendAlready &&
                 <button className="btn btn-primary" onClick={() => addFriend(), setIsFriendAlready(true)}>Add Friend</button>
                 }
-                {isFriendAlready &&
-                <h5>You are friends with{userClickedOn.userName}</h5>
+                {!isFriendAlready &&
+                <h5>You are friends with{userFromDb.userName}</h5>
                 }
             </div>
         </div>
         {specificUserPosts && specificUserPosts.map((post) => {  
                 return (
                 <div className="container mt-4 "> 
-                  <div className="card gedf-card posts mt-5 mb-3" style={{width: "750rem"}} >
+                  <div className="card gedf-card posts mt-5 mb-3" style={{width: "50rem"}} >
                       <div className="card-header">
                           <div className="d-flex justify-content-between align-items-center">
                               <div className="d-flex justify-content-between align-items-center">
@@ -153,12 +153,12 @@ console.log(userClickedOn);
                 <div className="d-flex justify-content-center align-items-center">
                     <div className="d-flex justify-content-center align-items-center">
                         <div className="m-2">
-                        {userClickedOn.userName &&
-                            <Avatar>{userClickedOn.userName[0]}</Avatar>
+                        {userFromDb.userName &&
+                            <Avatar>{userFromDb.userName[0]}</Avatar>
                             }
                         </div>
                         <div className="ml-2">
-                            <div className="h5 m-0">{userClickedOn.userName}</div>
+                            <div className="h5 m-0">{userFromDb.userName}</div>
                             <div className="h7 text-muted"></div>
                         </div>
                     </div>

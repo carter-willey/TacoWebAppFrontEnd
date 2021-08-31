@@ -13,7 +13,7 @@ import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 
 const NavBar = (props) => {
-  const {currentUser, logout, ownerStatus,  getNotifications,  setUserClickedOn, getShopHours, allUsers } = props
+  const {currentUser, logout, ownerStatus,  getNotifications,  setUserClickedOn, getShopHours,getUserFromDb, allUsers } = props
   const items = allUsers;
   const history = useHistory()
 
@@ -29,7 +29,7 @@ const NavBar = (props) => {
   }
 
   const handleOnSelect = (item) => {
-    setUserClickedOn(item)
+    getUserFromDb(item)
     history.push("/userprofile")
     console.log(item)
   }
@@ -95,7 +95,7 @@ const NavBar = (props) => {
             <Link className="nav-link" onClick={() => getNotifications()}  to="/Notifications">Notifications</Link>
           </li>
           <li className="nav-item">
-          <Link className="nav-link" onClick={() => setUserClickedOn(currentUser.user.id)} to="/userprofile" >Profile</Link>
+          <Link className="nav-link" onClick={() => getUserFromDb(currentUser.user.id)} to="/userprofile" >Profile</Link>
           </li>
           <li>
           <Link className="nav-link" to="/login" as={Link} onClick={logout} >Logout</Link>

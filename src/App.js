@@ -43,6 +43,7 @@ function App() {
   const [shopToView, setShopToView] = useState([]);
   const [specificShopHours, setSpecificShopHours] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
+  const [wasTacoPosted, setWasTacoPosted] = useState(false);
 
 
   
@@ -78,7 +79,9 @@ function App() {
     }
   }, [loading])
 
-
+useEffect(()=>{
+  getUserFeed()
+},[wasTacoPosted])
 
   useEffect(() => {
     if(currentUser){
@@ -214,13 +217,7 @@ function App() {
                 <MapPage {...props} allShops={allShops} />
               )}
             />
-            
-            <Route
-              path="/UserProfile"
-              render={(props) => (
-              <UsersProfile {...props} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} userFromDb={userFromDb} />
-              )}
-            />
+
             <Route
             path="/Menu"
             render={(props) => (
@@ -241,20 +238,17 @@ function App() {
     {!loading && !ownerStatus &&
        
       <div>
-          <NavBar logout={logout} allUsers={allUsers} setUserClickedOn={setUserClickedOn} getAllUsers={getAllUsers} getNotifications={getNotifications} currentUser={currentUser}  />
+          <NavBar logout={logout} allUsers={allUsers} setUserClickedOn={setUserClickedOn} getUserFromDb={getUserFromDb} getAllUsers={getAllUsers} getNotifications={getNotifications} currentUser={currentUser}  />
           <Switch>
             <Route path="/"
             exact
-            render={(props) => (<Home {...props} currentUser={currentUser}
+            render={(props) => (<Home {...props} currentUser={currentUser} setWasTacoPosted={setWasTacoPosted}
               currentToken={token} usersFeed={usersFeed} allShops={allShops} getUserFromDb={getUserFromDb}
               getTacosFromShopByShopId={getTacosFromShopByShopId}
               tacosFromShop={tacosFromShop} />
             )} />
             <Route path="/Signup" render={(props) => <SignUpForm {...props} />} />
-            <Route path="/RegisterShop" render={(props) => <RegisterShop {...props} 
-              currentUser={currentUser}
-              currentToken={token}
-            />} />
+            
             <Route
               path="/Login"
               render={(props) => (
@@ -268,12 +262,6 @@ function App() {
               )}
             />
             <Route
-              path="/AddTaco"
-              render={(props) => (
-                <AddTaco {...props} currentUser={currentUser} allShops={allShops} currentToken={token} />
-              )}
-            />
-            <Route
               path="/Notifications"
               render={(props) => (
                 <Notifications {...props} getShopFromArr={getShopFromArr} currentUser={currentUser} allShops={allShops} notifications={notifications} allShops={allShops} currentToken={token} />
@@ -282,13 +270,13 @@ function App() {
             <Route
               path="/UserProfile"
               render={(props) => (
-              <UsersProfile {...props} userClickedOn={userClickedOn} friends={friends} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
+              <UsersProfile {...props} userClickedOn={userClickedOn} userFromDb={userFromDb} friends={friends} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
               )}
             />
             <Route
               path="/viewshop"
               render={(props) => (
-              <ViewShop {...props} userFromDb={userFromDb} allShopHours={allShopHours} friends={friends} tacosFromShop={tacosFromShop} shopToView={shopToView} specificShopHours={specificShopHours} friends={friends} getUserFromDb={getUserFromDb} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
+              <ViewShop {...props} userFromDb={userFromDb} allShopHours={allShopHours} friends={friends} tacosFromShop={tacosFromShop} shopToView={shopToView} specificShopHours={specificShopHours} friends={friends} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
               )}
             />
             
