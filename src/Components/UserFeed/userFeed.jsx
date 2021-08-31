@@ -50,9 +50,8 @@ const UserFeed = (props) => {
                         {console.log(post)}
                         <div className="col"><img src={image.src} height="300em" alt="" /></div>
                         <div className="col">
-                        <div className="text-muted h7 mb-2"> <i className="fa fa-clock-o"></i>10 min ago</div>
-                        
-                            <Link to="/userprofile"  onClick={() =>  getUserFromDb(post.user.id)}
+
+                            <Link to="/userprofile"  onClick={async () => await getUserFromDb(post.user.id)}
                             >{post.user.userName} checked in the {post.taco.name}!</Link>
                     
 

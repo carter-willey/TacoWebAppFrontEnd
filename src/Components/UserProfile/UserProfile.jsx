@@ -7,16 +7,19 @@ import Avatar from '@material-ui/core/Avatar';
 
 const UsersProfile = (props) => {
   const {currentUser, usersFeed, userFromDb, currentToken, friends } = props
-  const [isOwnProfile, setIsOwnProfile] = useState(true);
-  const [isFriendAlready, setIsFriendAlready] = useState(false);
+  const [isOwnProfile, setIsOwnProfile] = useState();
+  const [isFriendAlready, setIsFriendAlready] = useState();
   const [tacoCounter, setTacoCounter] = useState(0);
   const [specificUserPosts, setSpecificUserPosts] = useState([]);
 
   const checkIfFriends = () =>{
-    console.log(friends);
+    
     friends.filter((friendship) =>{
         if(friendship.userId == userFromDb.id || friendship.friendId == userFromDb.id){
             setIsFriendAlready(true)
+        }
+        else{
+            setIsFriendAlready(false)
         }
     })
   }
@@ -43,12 +46,20 @@ console.log(userFromDb);
   useEffect(() =>{
     if (currentUser.user.id == userFromDb.id){
         setIsOwnProfile(true)
+        setIsFriendAlready(false)
     }
     else{
-        checkIfFriends()
+        if(friends.length != 0){
+            checkIfFriends()
+            setIsOwnProfile(false)
+        }
+        else{
+            setIsFriendAlready(false)
+            setIsOwnProfile(false)
+        }
     }
     filterUserFeed()
-  }, [currentUser])
+  }, [userFromDb])
 
   const addFriend = async () => {
       friendshipFields.userId = currentUser.user.id
@@ -64,7 +75,7 @@ console.log(userFromDb);
   return ( 
     <div className="container-fluid main h-100">
         {console.log(userFromDb)}
-        {!isOwnProfile &&
+        {!isOwnProfile && userFromDb &&
       <div className="row mainRow h-100" >
         <div className="col col-3 left"></div>
         <div className="col middle "> 
@@ -94,11 +105,11 @@ console.log(userFromDb);
                 </p>
             </div>
             <div className="card-footer">
-                {isFriendAlready &&
+                {!isFriendAlready &&
                 <button className="btn btn-primary" onClick={() => addFriend(), setIsFriendAlready(true)}>Add Friend</button>
                 }
-                {!isFriendAlready &&
-                <h5>You are friends with{userFromDb.userName}</h5>
+                {isFriendAlready &&
+                <h5>You are friends with {userFromDb.userName}</h5>
                 }
             </div>
         </div>
@@ -122,7 +133,7 @@ console.log(userFromDb);
   
                       </div>
                       <div className="card-body">
-                          <div className="text-muted h7 mb-2"> <i className="fa fa-clock-o"></i>10 min ago</div>
+                          
                           <a className="card-link" href="#">
                               <h5 className="card-title">{post.user.userName} checked in the {post.taco.name}!</h5>
                           </a>
@@ -144,7 +155,7 @@ console.log(userFromDb);
         <div className="col col-3 right"></div>
       </div>
     }
-    {isOwnProfile &&
+    {isOwnProfile && userFromDb &&
       <div className="row mainRow h-100">
         <div className="col col-3 left"></div>
         <div className="col middle "> 
@@ -197,7 +208,7 @@ console.log(userFromDb);
   
                       </div>
                       <div className="card-body">
-                          <div className="text-muted h7 mb-2"> <i className="fa fa-clock-o"></i>10 min ago</div>
+                          
                           <a className="card-link" href="#">
                               <h5 className="card-title">You checked in the {post.taco.name}!</h5>
                           </a>

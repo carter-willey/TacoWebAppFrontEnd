@@ -29,7 +29,7 @@ const NavBar = (props) => {
   }
 
   const handleOnSelect = (item) => {
-    getUserFromDb(item)
+    getUserFromDb(item.id)
     history.push("/userprofile")
     console.log(item)
   }
