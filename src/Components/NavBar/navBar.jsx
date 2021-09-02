@@ -41,9 +41,8 @@ const NavBar = (props) => {
 
   const formatResult = (item) => {
     return item;
-   // return (<p dangerouslySetInnerHTML={{__html: '<strong>'+item+'</strong>'}}></p>); //To format result as html
-  }
 
+  }
 
   return ( 
     <nav className="navbar navbar-expand-lg navbar-light bg" style={{backgroundColor: "#f5bd3b"}} >

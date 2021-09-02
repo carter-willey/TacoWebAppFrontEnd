@@ -44,23 +44,21 @@ const logIn = async () => {
                 <div className="col sm-4 d-flex justify-content-center">
                 <div>
                   <img src={logo} height="300rem" alt="" />
-                    <h1 className="title">Login</h1>
-                    <form onSubmit={handleSubmit}>
-                      <div>
-                        <h5 className="signupTitle">Username:</h5>
-                    <input className="form-control" name="username" placeholder="Please enter your username..." onChange={handleChange}></input>
+                  <h1 className="title">Login</h1>
+                  <form onSubmit={handleSubmit}>
+                    <div>
+                      <h5 className="signupTitle">Username:</h5>
+                      <input className="form-control" name="username" placeholder="Please enter your username..." onChange={handleChange}></input>
                     </div>
                     <div>
                       <h5 className="signupTitle">Password:</h5>
-                    <input className="form-control" type="password" name="password" placeholder="Please enter your password..." onChange={handleChange}></input>
-                    
-                    <button type="submit" class="btn btn-primary mt-2 ms-2 mx-5" >Login</button>
-                    <Link to="/Signup">
-                    <button type="submit" class="btn btn-primary mt-2 ms-2">Signup</button>
-                    
-                    </Link>
+                      <input className="form-control" type="password" name="password" placeholder="Please enter your password..." onChange={handleChange}></input>
+                      <button type="submit" class="btn btn-primary mt-2 ms-2 mx-5" >Login</button>
+                      <Link to="/Signup">
+                      <button type="submit" class="btn btn-primary mt-2 ms-2">Signup</button>
+                      </Link>
                     </div>
-                    </form>
+                  </form>
                     </div>
                 </div>
                 <div className="col sm-4"></div>

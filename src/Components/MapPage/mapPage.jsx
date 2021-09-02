@@ -25,7 +25,6 @@ function MapPage(props) {
     setTotalAvg(counter/tacosFromShop.length)
   },[tacosFromShop])
 
-
   return (
     <div className="container-fluid main h-100">
       <div className="row mainRow h-100">
@@ -48,7 +47,6 @@ function MapPage(props) {
         }}
         position={{lat: shop.lat, lng: shop.lng}} name={shop.name}
         />
-
       })}
       {selected ? (
           <InfoWindow
@@ -62,15 +60,16 @@ function MapPage(props) {
                 <Link to="/viewshop" onClick={() => { getShopFromArr(selected.shopId)}}>{selected.name}</Link>
               </h2>
               <p>
-                {selected.address}<br/>
-                {totalAvg.toFixed(2)}/5
+              <span><h6>Address:</h6> {selected.address}</span>
+                <br/>
+                <br/>
+                <span><h6>Overall taco rating:</h6> {totalAvg.toFixed(2)} / 5 </span>
               </p>
             </div>
           </InfoWindow>
         ) : null}
       </>
       </GoogleMap>
-            
         </div>
         <div className="col col-3 right"></div>
       </div>

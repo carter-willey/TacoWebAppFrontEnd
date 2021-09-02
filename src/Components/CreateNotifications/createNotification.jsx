@@ -29,7 +29,6 @@ const CreateNotification = (props) => {
     event.preventDefault();
     notificationFields.shopId = thisShopId;
     await axios.post("https://localhost:44394/api/notifications/", notificationFields, {headers: {Authorization: 'Bearer ' + currentToken}})
-    console.log("posted!");
     notificationFields.text = "";
   }
 
@@ -39,23 +38,19 @@ const CreateNotification = (props) => {
 
   return ( 
     <div className="card gedf-card">
-    <div className="card-header">
-        <span>Post to your followers!</span>
+      <div className="card-header">
+          <span>Post to your followers!</span>
+      </div>
+      <div className="card-body">
+        <form className="form-group search" onSubmit={submitPost} >
+          <label>What would you like to post to your followers?:</label>
+          <textarea className="form-control" rows="3" placeholder="What would you like to post?" value={notificationText} onChange={handleChange}/>
+          <div className="btn-group">
+            <button type="submit" className="btn btn-primary">Post</button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div className="card-body">
- 
-            <form className="form-group search" onSubmit={submitPost} >
-                
-      
-                  <label>What would you like to post to your followers?:</label>
-                  <textarea className="form-control" rows="3" placeholder="What would you like to post?" value={notificationText} onChange={handleChange}/>
-                  <div className="btn-group">
-                    <button type="submit" className="btn btn-primary">Post</button>
-                  </div>
-              </form>
-
-    </div>
-</div>
    );
 }
  

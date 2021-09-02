@@ -84,25 +84,21 @@ const RegisterShop = (props) => {
     }
     return (
         <div className="container-fluid mt-5 "> 
-            <div className="row ">
+            <div className="row">
                 <div className="col sm-4 side"></div>
                 <div className="col sm-4 d-flex justify-content-center">
                 <div className="">
                     <h1 className="title">{currentUser.user.username}, Register your shop!</h1>
                     <form onSubmit={handleSubmit}>
-                        <div>
-                            <h5 className="signupTitle">Shop Name:</h5>
-                        <input  className="form-control " value={eachEntry.name} name="name" placeholder="Shop name..." onChange={handleChange}></input>
-                    
-                       </div>
-
-                    
-                    <h5 className="signupTitle">Shop Address:</h5>
-                    <div>
-                    <ShopAddressSearch setAddress={setAddress} setLat={setLat} setLng={setLng}/>
-                    {/* <input  className="form-control" value={eachEntry.address} name="address" placeholder="Address..." onChange={handleChange}></input> */}
-                    
-                    </div>
+                      <div>
+                          <h5 className="signupTitle">Shop Name:</h5>
+                          <input  className="form-control " value={eachEntry.name} name="name" placeholder="Shop name..." onChange={handleChange}></input>
+                      </div>
+                      <h5 className="signupTitle">Shop Address:</h5>
+                      <div>
+                        <ShopAddressSearch setAddress={setAddress} setLat={setLat} setLng={setLng}/>
+                        {/* <input  className="form-control" value={eachEntry.address} name="address" placeholder="Address..." onChange={handleChange}></input> */}
+                      </div>
                     <div className="row mb-4 mt-4">
                       <div className="mr-4">
                         <h5 className="signupTitle">Monday Open:</h5>
@@ -221,7 +217,6 @@ const RegisterShop = (props) => {
                         </form>
                       </div>
                     </div>
-
                     <button className="mt-2 mb-1 btn btn-primary register" type="submit">Register Shop</button>
                     </form>
                     </div>

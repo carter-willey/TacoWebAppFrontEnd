@@ -94,9 +94,7 @@ console.log(userFromDb);
                             <div className="h7 text-muted"></div>
                         </div>
                     </div>
-                    
                 </div>
-
             </div>
             <div className="card-body">
      
@@ -152,6 +150,7 @@ console.log(userFromDb);
                                 <p className="card-text">
                                     {post.description}
                                 </p>
+                                <p>{post.rating} / 5</p>
                             </div>
                         </div>
                       </div>
@@ -226,22 +225,19 @@ console.log(userFromDb);
                                       <div className="h7 text-muted">{post.taco.shop.name}</div>
                                   </div>
                               </div>
-                              
                           </div>
-  
                       </div>
                       <div className="card-body">
                         <div className="row">
                             <div className="col"><img src={image.src} height="300em" alt="" /></div>
                             <div className="col">
-                          
                                 <a className="card-link" href="#">
                                     <h5 className="card-title">You checked in the {post.taco.name}!</h5>
                                 </a>
-  
                                 <p className="card-text">
                                     {post.description}
                                 </p>
+                                <p>{post.rating} / 5</p>
                             </div>
                         </div>
                       </div>
@@ -253,8 +249,6 @@ console.log(userFromDb);
                   </div>
                   </div>
                 )
-              
-              
             })}
         </div>
         <div className="col col-3 right"></div>

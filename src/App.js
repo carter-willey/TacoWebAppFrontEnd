@@ -22,9 +22,6 @@ import Notifications from './Components/Notifications/notifications';
 import YourShop from './Components/YourShop/yourShop';
 import ViewShop from './Components/ViewShop/viewShop';
 
-
-
-
 const libraries = ["places"]
 
 function App() {
@@ -46,8 +43,6 @@ function App() {
   const [wasTacoPosted, setWasTacoPosted] = useState(false);
   const [shopCreated, setShopCreated] = useState();
 
-
-  
   useEffect(async () => {
     const jwtToken = localStorage.getItem("token");
     setToken(jwtToken);
@@ -60,9 +55,6 @@ function App() {
         logout();
       }
       setCurrentUser({ user });
-      console.log(currentUser);
-      
-      
     } catch {
     }
   }, []);
@@ -70,7 +62,6 @@ function App() {
   useEffect( () => {
     if(ownerStatus == true){
       getAllShops()
-
     }
     else{
       getUserFeed()
@@ -91,10 +82,8 @@ useEffect(()=>{
   useEffect(() => {
     if(currentUser){
       checkOwnerStatus()
-      
     }
     setLoading(false)
-    
   }, [currentUser])
 
   const getShopHours = async () => {
@@ -103,7 +92,6 @@ useEffect(()=>{
     setAllShopHours(response.data)
   }
 
-  
   const getFriends = async () => {
     let response = await axios.get(`https://localhost:44394/api/friendship/`, {headers: {Authorization: 'Bearer ' + token}})
     setFriends(response.data)
@@ -194,7 +182,6 @@ useEffect(()=>{
        libraries={libraries}    
      >
       {!loading && ownerStatus &&
-       
       <div>
           <NavBar logout={logout} currentUser={currentUser} getShopHours={getShopHours} ownerStatus={ownerStatus}  />
           <Switch>
@@ -223,7 +210,6 @@ useEffect(()=>{
                 <MapPage {...props} allShops={allShops} />
               )}
             />
-
             <Route
             path="/Menu"
             render={(props) => (
@@ -238,11 +224,9 @@ useEffect(()=>{
             />
           </Switch>
       </div>
-      
     } 
 
     {!loading && !ownerStatus &&
-       
       <div>
           <NavBar logout={logout} allUsers={allUsers} setUserClickedOn={setUserClickedOn} getUserFromDb={getUserFromDb} getAllUsers={getAllUsers} getNotifications={getNotifications} currentUser={currentUser}  />
           <Switch>
@@ -254,7 +238,6 @@ useEffect(()=>{
               tacosFromShop={tacosFromShop} />
             )} />
             <Route path="/Signup" render={(props) => <SignUpForm {...props} />} />
-            
             <Route
               path="/Login"
               render={(props) => (
@@ -285,10 +268,8 @@ useEffect(()=>{
               <ViewShop {...props} userFromDb={userFromDb} allShopHours={allShopHours} friends={friends} tacosFromShop={tacosFromShop} shopToView={shopToView} specificShopHours={specificShopHours} friends={friends} currentUser={currentUser} allShops={allShops} currentToken={token} usersFeed={usersFeed} />
               )}
             />
-            
           </Switch>
       </div>
-      
     } 
     </LoadScript>
     </Router>

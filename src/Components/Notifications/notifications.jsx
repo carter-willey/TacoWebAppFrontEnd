@@ -12,15 +12,13 @@ const Notifications = (props) => {
       <div className="row mainRow h-100">
         <div className="col"></div>
         <div className="col">
-          <div className="row">
-          {currentUser.user.username}'s Notification Feed:
+          <div className="row d-flex justify-content-center">
+          <span><h3>{currentUser.user.username}'s Notification Feed:</h3></span>
           </div>
           <div className="">
             {notifications.map((note) => {
               return (
-                
                 <div className="card gedf-card my-4">
-                  {console.log(note)}
                     <div className="card-header">
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex justify-content-between align-items-center">
@@ -32,19 +30,14 @@ const Notifications = (props) => {
                                     <div className="h7 text-muted"></div>
                                 </div>
                             </div>
-                            
                         </div>
-
                     </div>
                     <div className="card-body">
-
-                            <Link to="/viewshop" onClick={() => { getShopFromArr(note.shopId)}} 
-                            >New notification!</Link>
-                    
-
-                        <p className="card-text">
-                            {note.text}
-                        </p>
+                      <Link to="/viewshop" onClick={() => { getShopFromArr(note.shopId)}} 
+                      >New notification!</Link>
+                      <p className="card-text">
+                          {note.text}
+                      </p>
                     </div>
                 </div>
               )

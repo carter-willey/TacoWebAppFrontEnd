@@ -87,54 +87,54 @@ const SignUpForm = () => {
                 <div className="col sm-4 side"></div>
                 <div className="col sm-4 d-flex justify-content-center">
                 <div>
-                <img src={logo} height="300rem" alt="" />
+                    <img src={logo} height="300rem" alt="" />
                     <h1 className="title">Signup</h1>
                     <form onSubmit={handleSubmit}>
                         <div>
                             <h5 className="signupTitle">First Name:</h5>
-                    <input  className="form-control " value={eachEntry.firstname} name="firstname" placeholder="First name..." onChange={handleChange}></input>
-                    {Object.keys(firstNameError).map((key) => {
-                        return <div style={{color: "yellow"}}>{firstNameError[key]} </div>
-                    })}
-                    </div>
-                    <h5 className="signupTitle">Last Name:</h5>
-                    <div>
-                    <input  className="form-control" value={eachEntry.lastname} name="lastname" placeholder="Last name..." onChange={handleChange}></input>
-                    {Object.keys(lastNameError).map((key) => {
-                        return <div style={{color: "yellow"}}>{lastNameError[key]} </div>
-                    })}
-                    </div>
-                    <h5 className="signupTitle">Username:</h5>
-                    <div>
-                    <input  className="form-control" value={eachEntry.username} name="username" placeholder="Username..." onChange={handleChange}></input>
-                    {Object.keys(userNameError).map((key) => {
-                        return <div style={{color: "yellow"}}>{userNameError[key]} </div>
-                    })}
-                    </div>
-                    <h5 className="signupTitle">Email:</h5>
-                    <div>
-                    <input  className="form-control" value={eachEntry.email} name="email" placeholder="Email..." onChange={handleChange}></input>
-                    {Object.keys(emailError).map((key) => {
-                        return <div style={{color: "yellow"}}>{emailError[key]} </div>
-                    })}
-                    </div>
-                    <h5 className="signupTitle">Password:</h5>
-                    <div>
-                    <input  className="form-control" type="password" value={eachEntry.password} name="password" placeholder="Password..." onChange={handleChange}></input>
-                    {Object.keys(passwordError).map((key) => {
-                        return <div style={{color: "yellow"}}>{passwordError[key]} </div>
-                    })}
-                    </div>
-                      <div class="form-check">
-                      <input type="checkbox" onChange={handleCheckbox} class="form-check-input" id="exampleCheck1"/>
-                      <label class="form-check-label" for="exampleCheck1">Are you a taco shop owner?</label>
-                    </div>
-                    <button className="btn btn-primary mt-2 ms-2" type="submit">Sign Up</button>
+                            <input  className="form-control " value={eachEntry.firstname} name="firstname" placeholder="First name..." onChange={handleChange}></input>
+                            {Object.keys(firstNameError).map((key) => {
+                                return <div style={{color: "yellow"}}>{firstNameError[key]} </div>
+                            })}
+                        </div>
+                        <h5 className="signupTitle">Last Name:</h5>
+                        <div>
+                        <input  className="form-control" value={eachEntry.lastname} name="lastname" placeholder="Last name..." onChange={handleChange}></input>
+                            {Object.keys(lastNameError).map((key) => {
+                                return <div style={{color: "yellow"}}>{lastNameError[key]} </div>
+                            })}
+                        </div>
+                        <h5 className="signupTitle">Username:</h5>
+                        <div>
+                            <input  className="form-control" value={eachEntry.username} name="username" placeholder="Username..." onChange={handleChange}></input>
+                            {Object.keys(userNameError).map((key) => {
+                                return <div style={{color: "yellow"}}>{userNameError[key]} </div>
+                            })}
+                        </div>
+                        <h5 className="signupTitle">Email:</h5>
+                        <div>
+                            <input  className="form-control" value={eachEntry.email} name="email" placeholder="Email..." onChange={handleChange}></input>
+                            {Object.keys(emailError).map((key) => {
+                                return <div style={{color: "yellow"}}>{emailError[key]} </div>
+                            })}
+                        </div>
+                        <h5 className="signupTitle">Password:</h5>
+                        <div>
+                        <input  className="form-control" type="password" value={eachEntry.password} name="password" placeholder="Password..." onChange={handleChange}></input>
+                        {Object.keys(passwordError).map((key) => {
+                            return <div style={{color: "yellow"}}>{passwordError[key]} </div>
+                        })}
+                        </div>
+                        <div class="form-check">
+                        <input type="checkbox" onChange={handleCheckbox} class="form-check-input" id="exampleCheck1"/>
+                        <label class="form-check-label" for="exampleCheck1">Are you a taco shop owner?</label>
+                        </div>
+                        <button className="btn btn-primary mt-2 ms-2" type="submit">Sign Up</button>
                     </form>
-                    </div>
                 </div>
-                <div className="col sm-4 side"></div>
             </div>
+            <div className="col sm-4 side"></div>
+        </div>
         </div>
     )
 }

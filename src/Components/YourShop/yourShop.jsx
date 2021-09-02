@@ -143,17 +143,14 @@ const YourShop = (props) => {
             <div className="row ">
                 <div className="col sm-4 side"></div>
                 <div className="col sm-4 justify-content-center " style={{alignItems: "center", display: "grid"}}>
-                
-                  
-                    
-                    <form onSubmit={handleSubmit} style={{justifyContent: 'center', display: "grid"}}>
+                  <form onSubmit={handleSubmit} style={{justifyContent: 'center', display: "grid"}}>
                     <h1 className="title">Update shop:</h1>                   
                     <h5 className="signupTitle">Shop Address:</h5>
                     <div>
-                    <ShopAddressSearch  thisShop={thisShop} setAddress={setAddress} setLat={setLat} setLng={setLng}/>
-                    {/* <input  className="form-control" value={eachEntry.address} name="address" placeholder="Address..." onChange={handleChange}></input> */}               
+                      <ShopAddressSearch  thisShop={thisShop} setAddress={setAddress} setLat={setLat} setLng={setLng}/>
+                      {/* <input  className="form-control" value={eachEntry.address} name="address" placeholder="Address..." onChange={handleChange}></input> */}               
                     </div>
-                    
+
                     <div className="row mb-4 mt-4 justify-content-center" style={{marginLeft: "-1rem"}}>
                       <div className="mr-4">
                         <h5 className="signupTitle">Monday Open:</h5>
@@ -271,15 +268,11 @@ const YourShop = (props) => {
                           <label for="7close">Select a time:</label>
                           <input type="time" id="7close" name="sunClose" value={eachTimeEntry.sunClose} onChange={handleTimeChange}/>
                         </form>
-                        
                       </div>
-                      
                     </div>
-
                     <button className="mt-2 mb-1 btn btn-primary register" type="submit">Update Shop</button>
                     </form>
                     </div>
-                  
                 
                 <div className="col sm-4 side"></div>
             </div>
