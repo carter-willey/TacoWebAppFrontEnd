@@ -37,7 +37,7 @@ const CreateNotification = (props) => {
   }
 
   return ( 
-    <div className="card gedf-card">
+    <div className="card gedf-card my-5">
       <div className="card-header">
           <span>Post to your followers!</span>
       </div>

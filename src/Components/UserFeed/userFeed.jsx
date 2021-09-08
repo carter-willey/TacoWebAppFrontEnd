@@ -40,7 +40,6 @@ const UserFeed = (props) => {
                     </div>
                     <div className="card-body">
                       <div className="row">
-                        {console.log(post)}
                         <div className="col"><img src={image.src} height="300em" alt="" /></div>
                         <div className="col">
                           <Link to="/userprofile"  onClick={async () => await getUserFromDb(post.user.id)}

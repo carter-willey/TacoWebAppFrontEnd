@@ -15,7 +15,7 @@ const BusinessHome = (props) => {
     <div className="container-fluid main">
       <div className="row mainRow">
         <div className="col col-3 left"></div>
-        <div className="col middle "> 
+        <div className="col middle"> 
             <CreateNotification allShops={allShops} currentToken={currentToken} currentUser={currentUser}
              getTacosFromShopByShopId={getTacosFromShopByShopId}
              tacosFromShop={tacosFromShop}/>

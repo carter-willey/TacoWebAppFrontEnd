@@ -16,7 +16,7 @@ const Notifications = (props) => {
           <span><h3>{currentUser.user.username}'s Notification Feed:</h3></span>
           </div>
           <div className="">
-            {notifications.map((note) => {
+            {notifications.slice(0).reverse().map((note) => {
               return (
                 <div className="card gedf-card my-4">
                     <div className="card-header">

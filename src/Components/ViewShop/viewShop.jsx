@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import Avatar from '@material-ui/core/Avatar';
 
 
 
@@ -46,7 +47,7 @@ const ViewShop = (props) => {
                 <div className="d-flex justify-content-center align-items-center">
                     <div className="d-flex justify-content-center align-items-center">
                         <div className="m-2">
-                            <img className="rounded-circle" width="45" src="https://www.ncenet.com/wp-content/uploads/2020/04/No-image-found.jpg" alt="" />
+                        <Avatar>{shopToView.name[0]}</Avatar>
                         </div>
                         <div className="ml-2">
                             <div className="h5 m-0">{shopToView.name}</div>
@@ -68,6 +69,7 @@ const ViewShop = (props) => {
                    Friday: {specificShopHours.friOpen} to {specificShopHours.friClose} <br/>
                    Saturday: {specificShopHours.satOpen} to {specificShopHours.satClose} <br/>
                    Sunday: {specificShopHours.sunOpen} to {specificShopHours.sunClose} <br/>
+
 
                 </p>
             </div>
@@ -110,5 +112,4 @@ const ViewShop = (props) => {
    );
 }
 
- 
 export default ViewShop;

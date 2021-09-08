@@ -75,7 +75,6 @@ console.log(userFromDb);
 
   return ( 
     <div className="container-fluid main h-100">
-        {console.log(userFromDb)}
         {!isOwnProfile && userFromDb && 
       <div className="row mainRow h-100" >
         <div className="col col-3 left"></div>
@@ -105,16 +104,15 @@ console.log(userFromDb);
             </div>
             <div className="card-footer">
                 {isFriendAlready &&
-                <button className="btn btn-primary" onClick={() => {addFriend(); setIsFriendAlready(false)}}>Add Friend</button>
+                <h5>You are friends with {userFromDb.userName}</h5>
                 }
                 {!isFriendAlready &&
-                <h5>You are friends with {userFromDb.userName}</h5>
+                <button className="btn btn-primary" onClick={() => {addFriend(); setIsFriendAlready(false)}}>Add Friend</button>
                 }
             </div>
         </div>
         {specificUserPosts && specificUserPosts.slice(0).reverse().map((post) => {  
             var image = new Image()
-            console.log(post);
             if(post.image === null || post.image === ""){
               image.src = imgSrc
             }
@@ -134,10 +132,8 @@ console.log(userFromDb);
                                       <div className="h5 m-0">{post.user.userName}</div>
                                       <div className="h7 text-muted">{post.taco.shop.name}</div>
                                   </div>
-                              </div>
-                              
+                              </div>                        
                           </div>
-  
                       </div>
                       <div className="card-body">
                         <div className="row">
@@ -146,7 +142,6 @@ console.log(userFromDb);
                                 <a className="card-link" href="#">
                                   <h5 className="card-title">{post.user.userName} checked in the {post.taco.name}!</h5>
                                 </a>
-  
                                 <p className="card-text">
                                     {post.description}
                                 </p>

@@ -60,9 +60,7 @@ const NavBar = (props) => {
           <li className="nav-item active">
             <Link className="nav-link"  to="/">Home <span className="sr-only">(current)</span></Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link"  to="/RegisterShop">Register Shop </Link>
-          </li>
+         
 
           <li className="nav-item">
             <Link className="nav-link" to="/Menu" as={Link}>Menu</Link>
