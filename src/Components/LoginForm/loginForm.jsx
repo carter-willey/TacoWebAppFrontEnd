@@ -43,9 +43,9 @@ const logIn = async () => {
                 <div className="col sm-4"></div>
                 <div className="col sm-4 d-flex justify-content-center">
                 <div>
-                  <img src={logo} height="300rem" alt="" />
+                   <img data-testid="imgloginform-1" src={logo} className="brandLogo" height="300rem" alt="brandLogo" />
                   <h1 className="title">Login</h1>
-                  <form onSubmit={handleSubmit}>
+                  <form role="logInForm" className="logForm" onSubmit={handleSubmit}>
                     <div>
                       <h5 className="signupTitle">Username:</h5>
                       <input className="form-control" name="username" placeholder="Please enter your username..." onChange={handleChange}></input>
@@ -53,9 +53,9 @@ const logIn = async () => {
                     <div>
                       <h5 className="signupTitle">Password:</h5>
                       <input className="form-control" type="password" name="password" placeholder="Please enter your password..." onChange={handleChange}></input>
-                      <button type="submit" class="btn btn-primary mt-2 ms-2 mx-5" >Login</button>
+                      <button type="submit" className="btn btn-primary mt-2 ms-2 mx-5" >Login</button>
                       <Link to="/Signup">
-                      <button type="submit" class="btn btn-primary mt-2 ms-2">Signup</button>
+                      <button type="submit" className="btn btn-primary mt-2 ms-2">Signup</button>
                       </Link>
                     </div>
                   </form>

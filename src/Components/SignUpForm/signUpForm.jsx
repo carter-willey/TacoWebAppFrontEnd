@@ -92,37 +92,37 @@ const SignUpForm = () => {
                     <form onSubmit={handleSubmit}>
                         <div>
                             <h5 className="signupTitle">First Name:</h5>
-                            <input  className="form-control " value={eachEntry.firstname} name="firstname" placeholder="First name..." onChange={handleChange}></input>
+                            <input role="firstNameInput" className="form-control" value={eachEntry.firstname} name="firstname" placeholder="First name..." onChange={handleChange}></input>
                             {Object.keys(firstNameError).map((key) => {
-                                return <div style={{color: "yellow"}}>{firstNameError[key]} </div>
+                                return <div role="firstNameError" style={{color: "red"}}>{firstNameError[key]} </div>
                             })}
                         </div>
                         <h5 className="signupTitle">Last Name:</h5>
                         <div>
                         <input  className="form-control" value={eachEntry.lastname} name="lastname" placeholder="Last name..." onChange={handleChange}></input>
                             {Object.keys(lastNameError).map((key) => {
-                                return <div style={{color: "yellow"}}>{lastNameError[key]} </div>
+                                return <div style={{color: "red"}}>{lastNameError[key]} </div>
                             })}
                         </div>
                         <h5 className="signupTitle">Username:</h5>
                         <div>
                             <input  className="form-control" value={eachEntry.username} name="username" placeholder="Username..." onChange={handleChange}></input>
                             {Object.keys(userNameError).map((key) => {
-                                return <div style={{color: "yellow"}}>{userNameError[key]} </div>
+                                return <div style={{color: "red"}}>{userNameError[key]} </div>
                             })}
                         </div>
                         <h5 className="signupTitle">Email:</h5>
                         <div>
                             <input  className="form-control" value={eachEntry.email} name="email" placeholder="Email..." onChange={handleChange}></input>
                             {Object.keys(emailError).map((key) => {
-                                return <div style={{color: "yellow"}}>{emailError[key]} </div>
+                                return <div style={{color: "red"}}>{emailError[key]} </div>
                             })}
                         </div>
                         <h5 className="signupTitle">Password:</h5>
                         <div>
                         <input  className="form-control" type="password" value={eachEntry.password} name="password" placeholder="Password..." onChange={handleChange}></input>
                         {Object.keys(passwordError).map((key) => {
-                            return <div style={{color: "yellow"}}>{passwordError[key]} </div>
+                            return <div style={{color: "red"}}>{passwordError[key]} </div>
                         })}
                         </div>
                         <div class="form-check">

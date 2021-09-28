@@ -62,14 +62,13 @@ const ViewShop = (props) => {
                 <p className="card-text">
                 <br/>
                    <h5>Hours:</h5>
-                   Monday: {specificShopHours.monOpen} to {specificShopHours.monClose} <br/>
-                   Tuesday: {specificShopHours.tuesOpen} to {specificShopHours.tuesClose} <br/>
-                   Wednesday: {specificShopHours.wedOpen} to {specificShopHours.wedClose} <br/>
-                   Thursday: {specificShopHours.thursOpen} to {specificShopHours.thursClose} <br/>
-                   Friday: {specificShopHours.friOpen} to {specificShopHours.friClose} <br/>
-                   Saturday: {specificShopHours.satOpen} to {specificShopHours.satClose} <br/>
-                   Sunday: {specificShopHours.sunOpen} to {specificShopHours.sunClose} <br/>
-
+                   Monday: 8:00 to 20:00 <br/>
+                   Tuesday: 8:00 to 20:00  <br/>
+                   Wednesday: 8:00 to 20:00  <br/>
+                   Thursday: 8:00 to 20:00  <br/>
+                   Friday: 8:00 to 20:00  <br/>
+                   Saturday: 8:00 to 20:00  <br/>
+                   Sunday: 8:00 to 20:00  <br/>
 
                 </p>
             </div>
